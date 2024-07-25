@@ -48,7 +48,7 @@
         content: '';
         display: block;
         width: 0;
-        height: 2px;
+        height: 8px;
         background: #007bff;
         transition: width 0.3s;
         position: absolute;

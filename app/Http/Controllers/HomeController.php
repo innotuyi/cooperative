@@ -15,4 +15,13 @@ class HomeController extends Controller
        
         return view('Frontend.partials.homeDashboard', ['test'=>$a]);
     }
+
+    public function dashboard(){
+
+        $a = '1';
+
+        return view('admin.master', ['test'=>$a]);
+    }
+
+    
 }
