@@ -23,7 +23,7 @@
                 </li>
                 <li class="sidebar-list-item fs-6"><a class="sidebar-link text-muted ms-3"
                        ><i
-                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Designation</a>
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Position</a>
                 </li>
             </ul>
         </li>
@@ -77,15 +77,6 @@
             </li>
         </ul>
     </li>
-
-
-    
-        <li class="sidebar-list-item py-2"><a class="sidebar-link text-muted " href=""><i
-                    class="fa-solid fa-circle-user me-2 text-info"></i>
-                <span class="sidebar-link-title fs-5">Users</span></a>
-        </li>
-
-
     </ul>
     <hr>
 
