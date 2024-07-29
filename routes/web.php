@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\OrganizationController;
@@ -22,12 +23,25 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
         Route::put('/Organization/update/{id}', [OrganizationController::class, 'update'])->name('Organization.update');
         Route::get('/Organization/Search/Department', [OrganizationController::class, 'searchDepartment'])->name('searchDepartment');
 
+
+
+
+                 // designation
+        Route::get('/Organization/designation', [DesignationController::class, 'designation'])->name('organization.designation');
+        Route::post('/Organization/designation/store', [DesignationController::class, 'designationStore'])->name('organization.designation.store');
+        Route::get('/Organization/designationList', [DesignationController::class, 'designationList'])->name('organization.designationList');
+        Route::get('/designation/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
+        Route::get('/designation/edit/{id}', [DesignationController::class, 'edit'])->name('designation.edit');
+        Route::put('/Designation/update/{id}', [DesignationController::class, 'update'])->name('Designation.update');
+        Route::get('/Designation/Search/Designation', [DesignationController::class, 'searchDesignation'])->name('searchDesignation');
+
+
         // Leave
         Route::get('/Leave/LeaveStatus', [LeaveController::class, 'leaveList'])->name('leave.leaveStatus');
         Route::get('/Leave/allLeaveReport', [LeaveController::class, 'allLeaveReport'])->name('allLeaveReport');
         Route::get('/searchLeaveList', [LeaveController::class, 'searchLeaveList'])->name('searchLeaveList');
 
-        // Approve,, Reject Leave
+        // Approve,, Reject Leaveorganization.designationList
         Route::get('/leave/approve/{id}',  [LeaveController::class, 'approveLeave'])->name('leave.approve');
         Route::get('/leave/reject/{id}',  [LeaveController::class, 'rejectLeave'])->name('leave.reject');
 
