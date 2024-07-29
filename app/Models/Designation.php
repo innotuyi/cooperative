@@ -9,5 +9,12 @@ class Designation extends Model
 {
     use HasFactory;
 
+    protected $fillable  = [
+        'designation_name',
+        'department_id',
+    ];
+
+
+
     
 }

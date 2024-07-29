@@ -14,22 +14,15 @@
 
 
     {{-- Department Form start --}}
+    {{-- Department Form start --}}
     <div class="text-left w-50 mx-auto">
         <div class="card mb-4">
             <div class="card-header py-3">
-                <h5 class="text-uppercase">New Designation</h5>
+                <h5 class="text-uppercase">New Position</h5>
             </div>
             <div class="card-body">
                 <form action="{{ route('organization.designation.store') }}" method="post">
                     @csrf
-                    <div class="row mb-4">
-                        <div class="col">
-                            <div class="form-outline">
-                                <label class="form-label mt-2" for="form11Example1">Designation ID</label>
-                                <input type="text" class="form-control" name="designation_id" id="" required>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row mb-4">
                         <div class=" col">
@@ -50,20 +43,6 @@
                                     <option value="{{$department->id}}">{{ $department->department_name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class=" col">
-                            <div class="col">
-                                <div class="form-outline">
-                                    <label class="form-label mt-2" for="form11Example1">Salary Class</label>
-                                    <select required class="form-control" name="salary_structure_id">
-                                        @foreach ($salaries as $salary)
-                                        <option value="{{$salary->id}}">{{ $salary->salary_class }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>

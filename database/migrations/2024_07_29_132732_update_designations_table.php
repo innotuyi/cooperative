@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('designations', function (Blueprint $table) {
-            $table->id();
-            $table->string('designation_name', 30);
-            $table->string('department_id', 10);
-            $table->foreign('department_id')->references('id')->on('departments');
-            $table->timestamps();
+        Schema::table('designations', function (Blueprint $table) {
+            //
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('designations');
+        Schema::table('designations', function (Blueprint $table) {
+            //
+        });
     }
 };

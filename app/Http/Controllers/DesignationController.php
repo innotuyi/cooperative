@@ -13,7 +13,7 @@ class DesignationController extends Controller
     {
 
         $departments  =  Department::all();
-        return view('admin.pages.Organization.Designation.designation', compact('departments', 'salaries'));
+        return view('admin.pages.Organization.Designation.designation', compact('departments'));
     }
 
     public function designationStore(Request $request)
@@ -42,9 +42,9 @@ class DesignationController extends Controller
 
     public function  designationList()
     {
-        $designations = Designation::with(['department', 'salary'])
-            ->latest('id')
-            ->get();
+        $designations = Designation::all();
+        dd($designations);
+          
         return view('admin.pages.Organization.Designation.designationList',  compact('designations'));
     }
     public function delete($id)
