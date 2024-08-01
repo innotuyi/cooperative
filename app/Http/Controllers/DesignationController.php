@@ -35,7 +35,7 @@ class DesignationController extends Controller
             'salary_structure_id' => $request->salary_structure_id, // Update salary_structure_id
         ]);
 
-        notify()->success('New Designation created successfully');
+        // notify()->success('New Designation created successfully');
         return redirect()->back();
     }
 
@@ -43,7 +43,7 @@ class DesignationController extends Controller
     public function  designationList()
     {
         $designations = Designation::all();
-        dd($designations);
+        // dd($designations);
           
         return view('admin.pages.Organization.Designation.designationList',  compact('designations'));
     }

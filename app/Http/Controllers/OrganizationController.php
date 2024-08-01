@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Validator;
         Department::create([
             'department_name' => $request->department_name,
         ]);
-        notify()->success('New Department created successfully.');
+        // notify()->success('New Department created successfully.');
         return redirect()->back();
     }
     public function delete($id)

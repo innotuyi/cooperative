@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
             $table->string('designation_name', 30);
-            $table->string('department_id', 10);
+            $table->unsignedBigInteger('department_id'); // Use the correct data type for foreign key
             $table->foreign('department_id')->references('id')->on('departments');
             $table->timestamps();
         });

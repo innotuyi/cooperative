@@ -95,43 +95,6 @@
             z-index: 99999;
         }
     </style>
-    <script>
-        function display_ct7() {
-                var x = new Date();
-                var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                var day = days[x.getDay()]; // Get the day of the week
-
-                var ampm = x.getHours() >= 12 ? ' PM' : ' AM';
-                var hours = x.getHours() % 12;
-                hours = hours ? hours : 12;
-                hours = hours.toString().length == 1 ? '0' + hours.toString() : hours;
-
-                var minutes = x.getMinutes().toString();
-                minutes = minutes.length == 1 ? '0' + minutes : minutes;
-
-                var seconds = x.getSeconds().toString();
-                seconds = seconds.length == 1 ? '0' + seconds : seconds;
-
-                var month = (x.getMonth() + 1).toString();
-                month = month.length == 1 ? '0' + month : month;
-
-                var dt = x.getDate().toString();
-                dt = dt.length == 1 ? '0' + dt : dt;
-
-                var dayOfWeekElement = document.getElementById('dayOfWeek');
-                dayOfWeekElement.innerHTML = day; // Display the day of the week in uppercase
-
-                var x1 = month + "-" + dt + "-" + x.getFullYear();
-                x1 = x1 + " - " + hours + ":" + minutes + " " +  ampm;
-                document.getElementById('ct7').innerHTML = x1;
-                display_c7();
-            }
-
-            function display_c7() {
-                var refresh = 1000; // Refresh rate in milliseconds
-                mytime = setTimeout('display_ct7()', refresh);
-            }
-            display_c7();
     </script>
 </head>
 
@@ -169,22 +132,21 @@
     <footer class="bg-dark flex-grow-0  text-center text-white w-100">
         <!-- Grid container -->
         <div class="container p-4 pb-0">
-            
+
         </div>
         <!-- Grid container -->
 
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)" ;>
-           Leave Management System
-          </a>
+            Leave Management System
+            </a>
         </div>
     </footer>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- JavaScript files-->
-    <script src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/vendor/bootstrap/js/bootstrap.bundle.min.js">
-    </script>
+    <script src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <!-- Data Tables-->
     <script src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/vendor/simple-datatables/umd/simple-datatables.js">
@@ -204,23 +166,23 @@
     <script
         src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/vendor/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.min.js">
     </script>
-    <script
-        src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/vendor/prismjs/plugins/toolbar/prism-toolbar.min.js">
+    <script src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/vendor/prismjs/plugins/toolbar/prism-toolbar.min.js">
     </script>
     <script
         src="https://d19m59y37dris4.cloudfront.net/bubbly/1-3-2/vendor/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js">
     </script>
     <script type="text/javascript">
         // Optional
-            Prism.plugins.NormalizeWhitespace.setDefaults({
-                'remove-trailing': true,
-                'remove-indent': true,
-                'left-trim': true,
-                'right-trim': true,
-            });
+        Prism.plugins.NormalizeWhitespace.setDefaults({
+            'remove-trailing': true,
+            'remove-indent': true,
+            'left-trim': true,
+            'right-trim': true,
+        });
     </script>
 
-    @notifyJs
+<x-notify::notify />
+@notifyJs
 
     <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
