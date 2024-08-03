@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->integer('phone');
+            $table->string('image')->nullable();
+            $table->unsignedBigInteger('department_id'); // Use the correct data type for foreign key
+            $table->foreign('department_id')->references('id')->on('departments');
+            $table->unsignedBigInteger('designation_id'); // Use the correct data type for foreign key
+            $table->foreign('designation_id')->references('id')->on('designations');
+            
+
             $table->timestamps();
         });
     }

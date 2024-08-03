@@ -27,44 +27,26 @@
     <table class="table align-middle text-center bg-white">
         <thead class="bg-light">
             <tr>
-                <th>SL NO</th>
+                <th>NO</th>
                 <th>Employee Name</th>
-                <th>Image</th>
-                <th>Employee ID</th>
                 <th>Department</th>
                 <th>Designation</th>
-                <th>Salary Grade</th>
-                <th>Mode of Join</th>
-                {{-- <th>Password</th> --}}
-                {{-- <th>Phone</th> --}}
-                {{-- <th>Email</th> --}}
-                {{-- <th>Salary</th> --}}
-                {{-- <th>Location</th> --}}
+                <th>Phone</th>
+                <th>Email</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-
-            @foreach ($employees as $key => $employee)
+            @foreach ($employees as  $employee)
             <tr>
-                <td>
-                    <div>
-                        <p class="fw-bold mb-1">{{ $key + 1 }}</p>
-                    </div>
-                </td>
+                <td>{{ $employee->id }}</td>
                 <td>{{ $employee->name }}</td>
-                <td><img class="avatar p-1" src="{{ url('/uploads//' . $employee->employee_image) }}" alt="">
-                </td>
-                <td>{{ $employee->employee_id }}</td>
-                <td>{{ optional($employee->department)->department_name }}</td>
-                <td>{{ optional($employee->designation)->designation_name }}</td>
-                <td>{{ optional($employee->salaryStructure)->salary_class }}</td>
-                <td>{{ $employee->joining_mode }}</td>
-                {{-- <td>{{ $employee->password }}</td> --}}
-                {{-- <td>{{ $employee->phone }}</td> --}}
-                {{-- <td>{{ $employee->email }}</td> --}}
-                {{-- <td>{{ $employee->salary }}</td> --}}
-                {{-- <td>{{ $employee->location }}</td> --}}
+                <td>{{ $employee->department_name }}</td>
+                <td>{{ $employee->designation_name }}</td>
+                <td>{{ $employee->phone }}</td>
+                <td>{{ $employee->email }}</td>
+                {{-- <td><img class="avatar p-1" src="{{ url('/uploads//' . $employee->employee_image) }}" alt=""> --}}
+
                 <td>
                     <a class="btn btn-warning rounded-pill fw-bold text-white"
                         href="{{ route('Employee.profile', $employee->id) }}"><i class="fa-regular fa-eye"></i></a>
@@ -80,9 +62,7 @@
             @endforeach
         </tbody>
     </table>
-    <div class="w-25 mx-auto mt-4">
-        {{ $employees->links() }}
-    </div>
+
 </div>
 
 <div class="modal" id="deleteEmployeeModal" tabindex="-1" role="dialog">

@@ -34,19 +34,19 @@
 
         {{-- Employees --}}
         <li class="sidebar-list-item py-2 "><a class="sidebar-link text-muted " href="#" data-bs-target="#cmsDropdown"
-                role="button" aria-expanded="false" data-bs-toggle="collapse"><i
-                    class="fa-solid fa-user-group me-2 text-info"></i>
-                <span class="sidebar-link-title fs-5">Employees</span></a>
-            <ul class="sidebar-menu list-unstyled collapse " id="cmsDropdown">
-                <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
-                        href=""><i
-                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Add
-                        Employee</a></li>
-                <li class="sidebar-list-item fs-6"><a class="sidebar-link text-muted ms-3"
-                        href=""><i
-                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>View Employee</a></li>
-            </ul>
-        </li>
+            role="button" aria-expanded="false" data-bs-toggle="collapse"><i
+                class="fa-solid fa-user-group me-2 text-info"></i>
+            <span class="sidebar-link-title fs-5">Employees</span></a>
+        <ul class="sidebar-menu list-unstyled collapse " id="cmsDropdown">
+            <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
+                    href="{{ route('manageEmployee.addEmployee') }}"><i
+                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Add
+                    Employee</a></li>
+            <li class="sidebar-list-item fs-6"><a class="sidebar-link text-muted ms-3"
+                    href="{{ route('manageEmployee.ViewEmployee') }}"><i
+                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>View Employee</a></li>
+        </ul>
+    </li>
 
           {{-- Manage Leave --}}
           <li class="sidebar-list-item py-2 "><a class="sidebar-link text-muted " href="#"

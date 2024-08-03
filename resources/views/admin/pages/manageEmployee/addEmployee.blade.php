@@ -40,18 +40,6 @@
                                 </div>
                                 <div class=" col-md-4">
                                     <div class="form-outline">
-                                        <label class="form-label mt-2 fw-bold" for="form11Example1">Employee ID</label>
-                                        <input required placeholder="Enter ID" type="text" id="form11Example1"
-                                            name="employee_id" class="form-control" />
-                                    </div>
-                                    <div class="mt-2">
-                                        @error('employee_id')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class=" col-md-4">
-                                    <div class="form-outline">
                                         <label class="form-label mt-2" for="form11Example1">Deparment Name</label>
                                         <select type="text" class="form-control" name="department_id">
                                             @foreach ($departments as $department)
@@ -66,23 +54,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
 
-
-                            <div class="row mb-4">
-                                <div class=" col-md-4">
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label mt-2 fw-bold" for="form11Example3">Date of
-                                            Birth</label>
-                                        <input required type="date" id="form11Example3" name="date_of_birth"
-                                            class="form-control" />
-                                    </div>
-                                    <div class="mt-2">
-                                        @error('date_of_birth')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                                  
                                 <div class="col-md-4">
                                     <div class="form-outline mb-4">
                                         <label class="form-label mt-2" for="form11Example1">Designation</label>
@@ -99,19 +72,10 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class=" col-md-4">
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label mt-2 fw-bold" for="form11Example4">Hire Date</label>
-                                        <input required placeholder="Enter date here" type="date" id="form11Example4"
-                                            name="hire_date" class="form-control" />
-                                    </div>
-                                    <div class="mt-2">
-                                        @error('hire_date')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
                             </div>
+
+
+                              
 
 
                             <div class="row mb-4">
@@ -133,7 +97,7 @@
                                     <div class="form-outline mb-4">
                                         <label class="form-label mt-2 fw-bold" for="form11Example6">Phone</label>
                                         <input required placeholder="Phone Number" type="text" id="form11Example6"
-                                            name="phone" class="form-control" pattern="^(?:\+?88|01)?\d{11}$"
+                                            name="phone" class="form-control"
                                             title="Enter a valid Bangladeshi phone number with optional +88 or 01 preceding 11 digits" />
                                     </div>
                                     <div class="mt-2">
@@ -156,52 +120,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row mb-4">
-                                <div class=" col-md-4">
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label mt-2" for="form11Example1">Salary Grade</label>
-                                        <select required class="form-control" name="salary_structure_id">
-                                            @foreach ( $salaries as $salary)
-                                            <option value="{{ $salary->id}}">{{ $salary->salary_class }}
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mt-2">
-                                        @error('salary_structure_id')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class=" col-md-4">
-                                    <div class="form-outline mb-4">
-                                        <label class="form-label mt-2 fw-bold" for="form11Example7">Location</label>
-                                        <input required placeholder="Enter Location" type="text" id="form11Example6"
-                                            name="location" class="form-control" pattern="[A-Za-z0-9\s]+"
-                                            title="Enter a valid location (letters, numbers, and spaces only)" />
-                                    </div>
-                                    <div class="mt-2">
-                                        @error('location')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class=" col-md-4">
-                                    <div class="form-outline">
-                                        <label class="form-label mt-2 fw-bold" for="joinMode">Mode of Joining</label>
-                                        <select required id="joinMode" name="joining_mode" class="form-select">
-                                            <option value="interview">Interview</option>
-                                            <option value="referral">Referral</option>
-                                            <option value="walk-in">Walk-in</option>
-                                        </select>
-                                    </div>
-                                    <div class="mt-2">
-                                        @error('joining_mode')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
                             </div>
                             <div class="text-center w-25 mx-auto">
                                 <button type="submit"

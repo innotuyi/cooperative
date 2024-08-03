@@ -3,8 +3,10 @@
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\manageEmployeeController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\viewEmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -84,3 +86,14 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
         Route::get('/myProfile', [UserController::class, 'myProfile'])->name('profile');
 
     // });
+
+
+    // Employee Management
+    Route::get('/Employee/addEmployee', [manageEmployeeController::class, 'addEmployee'])->name('manageEmployee.addEmployee');
+    Route::post('/manageEmployee/addEmployee/store', [manageEmployeeController::class, 'store'])->name('manageEmployee.addEmployee.store');
+    Route::get('/Employee/viewEmployee', [viewEmployeeController::class, 'viewEmployee'])->name('manageEmployee.ViewEmployee');
+    Route::get('/Employee/delete/{id}', [viewEmployeeController::class, 'delete'])->name('Employee.delete');
+    Route::get('Employee/edit/{id}', [viewEmployeeController::class, 'edit'])->name('Employee.edit');
+    Route::put('/Employee/update/{id}', [viewEmployeeController::class, 'update'])->name('Employee.update');
+    Route::get('/Employee/profile/{id}', [viewEmployeeController::class, 'profile'])->name('Employee.profile');
+    Route::get('/search-employee', [viewEmployeeController::class, 'search'])->name('employee.search');
