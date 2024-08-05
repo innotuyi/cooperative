@@ -24,7 +24,7 @@ class LeaveController extends Controller
     public function leaveList()
     {
 
-        $leaves = Leave::with(['type'])->paginate(5);
+        $leaves = Leave::all();
         return view('admin.pages.Leave.leaveList', compact('leaves'));
     }
 
@@ -135,7 +135,7 @@ class LeaveController extends Controller
         $leaveType = LeaveType::findOrFail($request->leave_type_id);
         $leaveTypeTotalDays = $leaveType->leave_days;
 
-        $userId = auth()->user()->id;
+        $userId = 1;
 
         $totalTakenDaysForLeaveType = Leave::where('employee_id', $userId)
             ->where('leave_type_id', $request->leave_type_id)
@@ -181,9 +181,12 @@ class LeaveController extends Controller
         }
 
         Leave::create([
-            'employee_name' => auth()->user()->name,
-            'department_name' => optional(auth()->user()->employee->department)->department_name ?? 'Not specified',
-            'designation_name' => optional(auth()->user()->employee->designation)->designation_name ?? 'Not specified',
+            // 'employee_name' => auth()->user()->name,
+            'employee_name' => "innocent",
+            // 'department_name' => optional(auth()->user()->employee->department)->department_name ?? 'Not specified',
+            // 'designation_name' => optional(auth()->user()->employee->designation)->designation_name ?? 'Not specified',
+            'department_name' => 'ICT',
+            'designation_name' => 'IT HELP DESK',
             'employee_id' => $userId,
             'from_date' => $fromDate,
             'to_date' => $toDate,

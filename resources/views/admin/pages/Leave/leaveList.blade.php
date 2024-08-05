@@ -37,17 +37,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($leaves as $key => $leave)
+            @foreach ($leaves as $leave)
             <tr>
-                <td>
-                    <div>
-                        <p class="fw-bold mb-1">{{ $key + 1 }}</p>
-                    </div>
-                </td>
+               
                 <td>{{ $leave->employee_name }}</td>
                 <td>{{ $leave->department_name }}</td>
                 <td>{{ $leave->designation_name }}</td>
-                <td>{{ $leave->type->leave_type_id }}</td>
+                {{-- <td>{{ $leave->type->leave_type_id }}</td> --}}
                 <td>{{ $leave->from_date }}</td>
                 <td>{{ $leave->to_date }}</td>
                 <td>{{ $leave->total_days }}</td> <!-- Display total_days -->
@@ -69,8 +65,6 @@
             @endforeach
         </tbody>
     </table>
-    <div class="w-25 mx-auto mt-4">
-        {{ $leaves->links() }}
-    </div>
+   
 </div>
 @endsection
