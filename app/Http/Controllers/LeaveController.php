@@ -208,7 +208,7 @@ class LeaveController extends Controller
         $leave->status = 'approved'; // Assuming 'status' is a field in your 'leaves' table
         $leave->save();
 
-        notify()->success('Leave approved');
+        // notify()->success('Leave approved');
         return redirect()->back();
     }
 
@@ -248,7 +248,7 @@ class LeaveController extends Controller
             'leave_days' => $request->leave_days,
         ]);
 
-        notify()->success('New Leave Type created successfully.');
+        // notify()->success('New Leave Type created successfully.');
         return redirect()->back();
     }
 
@@ -261,7 +261,7 @@ class LeaveController extends Controller
         if ($leaveType) {
             $leaveType->delete();
         }
-        notify()->success('Deleted Successfully.');
+        // notify()->success('Deleted Successfully.');
         return redirect()->back();
     }
     public function leaveEdit($id)
@@ -334,59 +334,59 @@ class LeaveController extends Controller
 
     public function showLeaveBalance()
     {
-        // $userId = auth()->user()->id;
-        // $designation = auth()->user()->employee->designation->designation_name;
+        $userId = auth()->user()->id;
+        $designation = auth()->user()->employee->designation->designation_name;
 
-        // Define leave days based on designations
-        // $designationLeaveDays = [
-        //     'Android Developer' => 20,
-        //     'Web Developer' => 20,
-        //     'Manager' => 25,
-        //     'Software Developer' => 20,
-        //     'IT Director' => 25,
-        //     'System Administrator' => 25,
-        //     'Content Creator' => 20,
-        //     'Chief Financial Officer' => 25,
-        //     'Sales Director' => 25,
-        //     'Sales Support Specialist' => 20,
-        //     'Customer Support' => 20,
-        // ];
+       // Define leave days based on designations
+        $designationLeaveDays = [
+            'Android Developer' => 20,
+            'Web Developer' => 20,
+            'Manager' => 25,
+            'Software Developer' => 20,
+            'IT Director' => 25,
+            'System Administrator' => 25,
+            'Content Creator' => 20,
+            'Chief Financial Officer' => 25,
+            'Sales Director' => 25,
+            'Sales Support Specialist' => 20,
+            'Customer Support' => 20,
+        ];
 
-        // $leaveTypeBalances = [];
-        // $totalTakenDays = 0;
+        $leaveTypeBalances = [];
+        $totalTakenDays = 0;
 
-        // $leaves = Leave::where('employee_id', $userId)
-        //     ->whereYear('from_date', '=', date('Y'))
-        //     ->with('type')
-        //     ->get();
+        $leaves = Leave::where('employee_id', $userId)
+            ->whereYear('from_date', '=', date('Y'))
+            ->with('type')
+            ->get();
 
-        // foreach ($leaves as $leave) {
-        //     $leaveType = $leave->type->leave_type_id;
-        //     $leaveLimit = $leave->type->leave_days;
+        foreach ($leaves as $leave) {
+            $leaveType = $leave->type->leave_type_id;
+            $leaveLimit = $leave->type->leave_days;
 
-        //     if (!isset($leaveTypeBalances[$leaveType])) {
-        //         $leaveTypeBalances[$leaveType] = [
-        //             'totalDays' => $leaveLimit,
-        //             'takenDays' => 0,
-        //             'availableDays' => $leaveLimit,
-        //         ];
-        //     }
+            if (!isset($leaveTypeBalances[$leaveType])) {
+                $leaveTypeBalances[$leaveType] = [
+                    'totalDays' => $leaveLimit,
+                    'takenDays' => 0,
+                    'availableDays' => $leaveLimit,
+                ];
+            }
 
-        //     if ($leave->status === 'approved') {
-        //         $leaveTypeBalances[$leaveType]['takenDays'] += $leave->total_days;
-        //         $leaveTypeBalances[$leaveType]['availableDays'] -= $leave->total_days;
+            if ($leave->status === 'approved') {
+                $leaveTypeBalances[$leaveType]['takenDays'] += $leave->total_days;
+                $leaveTypeBalances[$leaveType]['availableDays'] -= $leave->total_days;
 
-        //         $totalTakenDays += $leave->total_days;
-        //     }
-        // }
+                $totalTakenDays += $leave->total_days;
+            }
+        }
 
-        // // Update available days based on designation
-        // $availableDays = $designationLeaveDays[$designation] - $totalTakenDays;
-        // $leaveTypeBalances[$designation] = [
-        //     'totalDays' => $designationLeaveDays[$designation],
-        //     'takenDays' => $totalTakenDays,
-        //     'availableDays' => $availableDays,
-        // ];
+        // Update available days based on designation
+        $availableDays = $designationLeaveDays[$designation] - $totalTakenDays;
+        $leaveTypeBalances[$designation] = [
+            'totalDays' => $designationLeaveDays[$designation],
+            'takenDays' => $totalTakenDays,
+            'availableDays' => $availableDays,
+        ];
          $leaveTypeBalances =2;
          $totalTakenDays = 3;
          $designationLeaveDays =3;
