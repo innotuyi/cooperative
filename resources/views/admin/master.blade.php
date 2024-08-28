@@ -94,6 +94,10 @@
             /* Semi-transparent background */
             z-index: 99999;
         }
+
+        body {
+            background-color: #0A4B0B !important;
+        }
     </style>
     </script>
 </head>

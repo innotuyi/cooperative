@@ -22,6 +22,47 @@ use Illuminate\Support\Facades\Validator;
         return view('admin.pages.Organization.Department.members', compact('departments'));
     }
 
+    public function share()
+    {
+        $departments = Member::all();
+        return view('admin.pages.Organization.Department.share', compact('departments'));
+    }
+
+    public function properties()
+    {
+        $departments = Member::all();
+        return view('admin.pages.Organization.Department.properties', compact('departments'));
+    }
+
+    public function meeting()
+    {
+        $departments = Member::all();
+        return view('admin.pages.Organization.Department.meeting', compact('departments'));
+    }
+
+
+    
+    public function punishment()
+    {
+        $departments = Member::all();
+        return view('admin.pages.Organization.Department.punishment', compact('departments'));
+    }
+
+
+    public function expenduture()
+    {
+        $departments = Member::all();
+        return view('admin.pages.Organization.Department.expenduture', compact('departments'));
+    }
+
+
+    public function agent()
+    {
+        $departments = Member::all();
+        
+        return view('admin.pages.Organization.Department.agent', compact('departments'));
+    }
+
 
 
 

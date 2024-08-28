@@ -24,6 +24,23 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
          Route::get('/Organization/department', [OrganizationController::class, 'member'])->name('organization.member');
 
+         Route::get('/Organization/share', [OrganizationController::class, 'share'])->name('organization.share');
+
+         Route::get('/Organization/properties', [OrganizationController::class, 'properties'])->name('organization.properties');
+
+         Route::get('/Organization/meeting', [OrganizationController::class, 'meeting'])->name('organization.meeting');
+
+         Route::get('/Organization/punishment', [OrganizationController::class, 'punishment'])->name('organization.punishment');
+
+         Route::get('/Organization/expenduture', [OrganizationController::class, 'expenduture'])->name('organization.expenduture');
+
+         Route::get('/Organization/agent', [OrganizationController::class, 'agent'])->name('organization.agent');
+
+
+
+
+
+
         Route::post('/Organization/department/store', [OrganizationController::class, 'store'])->name('organization.department.store');
         Route::get('/Organization/delete/{id}', [OrganizationController::class, 'delete'])->name('Organization.delete');
         Route::get('/Organization/edit/{id}', [OrganizationController::class, 'edit'])->name('Organization.edit');
