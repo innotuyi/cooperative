@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,8 +12,21 @@ use Illuminate\Support\Facades\Validator;
     public function department()
     {
         $departments = Department::all();
-        return view('admin.pages.Organization.Department.department', compact('departments'));
+        return view('admin.pages.Organization.Department.guardian', compact('departments'));
     }
+
+
+    public function member()
+    {
+        $departments = Member::all();
+        return view('admin.pages.Organization.Department.members', compact('departments'));
+    }
+
+
+
+
+
+
     public function departmentList()
     {
         $departments = Department::all();

@@ -18,7 +18,12 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
     // Admin Routes (Accessible only by admin users)
     // Route::group(['middleware' => ['auth', 'IsAdmin']], function () {
          // department
-        Route::get('/Organization/department', [OrganizationController::class, 'department'])->name('organization.department');
+
+
+         Route::get('/organization/department', [OrganizationController::class, 'department'])->name('organization.department');
+
+         Route::get('/Organization/department', [OrganizationController::class, 'member'])->name('organization.member');
+
         Route::post('/Organization/department/store', [OrganizationController::class, 'store'])->name('organization.department.store');
         Route::get('/Organization/delete/{id}', [OrganizationController::class, 'delete'])->name('Organization.delete');
         Route::get('/Organization/edit/{id}', [OrganizationController::class, 'edit'])->name('Organization.edit');

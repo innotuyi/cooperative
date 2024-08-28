@@ -13,27 +13,29 @@
 
         {{-- Organization --}}
         <li class="sidebar-list-item py-2"><a class="sidebar-link text-muted " href="#"
-            data-bs-target="#widgetsDropdown" role="button" aria-expanded="false" data-bs-toggle="collapse"><i
-                class="fa-solid fa-building me-2  text-info"></i>
-            <span class="sidebar-link-title fs-5">Organization</span></a>
-        <ul class="sidebar-menu   list-unstyled collapse " id="widgetsDropdown">
-            <li class="sidebar-list-item py-2  fs-6"><a class="sidebar-link text-muted ms-3"
-                    href="{{ route('organization.department') }}"><i
-                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Department</a>
-            </li>
-            <li class="sidebar-list-item fs-6"><a class="sidebar-link text-muted ms-3"
-                    href="{{ route('organization.designationList') }}"><i
-                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Designation</a>
-            </li>
-        </ul>
-    </li>
-    
+                data-bs-target="#widgetsDropdown" role="button" aria-expanded="false" data-bs-toggle="collapse"><i
+                    class="fa-solid fa-building me-2  text-info"></i>
+                <span class="sidebar-link-title fs-5">Members</span></a>
+            <ul class="sidebar-menu   list-unstyled collapse " id="widgetsDropdown">
+                <li class="sidebar-list-item py-2  fs-6"><a class="sidebar-link text-muted ms-3"
+                        href="{{ route('organization.department') }}"><i
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Guardians</a>
+                </li>
+
+                <li class="sidebar-list-item py-2  fs-6"><a class="sidebar-link text-muted ms-3"
+                        href="{{ route('organization.member') }}"><i
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Members</a>
+                </li>
+
+            </ul>
+        </li>
 
 
-     
+
+
 
         {{-- Employees --}}
-        <li class="sidebar-list-item py-2 "><a class="sidebar-link text-muted " href="#" data-bs-target="#cmsDropdown"
+        {{-- <li class="sidebar-list-item py-2 "><a class="sidebar-link text-muted " href="#" data-bs-target="#cmsDropdown"
             role="button" aria-expanded="false" data-bs-toggle="collapse"><i
                 class="fa-solid fa-user-group me-2 text-info"></i>
             <span class="sidebar-link-title fs-5">Employees</span></a>
@@ -46,38 +48,38 @@
                     href="{{ route('manageEmployee.ViewEmployee') }}"><i
                         class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>View Employee</a></li>
         </ul>
-    </li>
+    </li> --}}
 
-          {{-- Manage Leave --}}
-          <li class="sidebar-list-item py-2 "><a class="sidebar-link text-muted " href="#"
-            data-bs-target="#componentsDropdown" role="button" aria-expanded="false" data-bs-toggle="collapse"><i
-                class="fa-solid fa-person-walking-arrow-right me-2 text-info"></i>
-            <span class="sidebar-link-title fs-5">Leave</span></a>
-        <ul class="sidebar-menu   list-unstyled collapse " id="componentsDropdown">
-            <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
-                    href="{{ route('leave.leaveForm') }}"><i
-                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Apply
-                    Leave</a>
-            </li>
-            <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
-                    href="{{ route('leave.myLeave') }}"><i
-                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>My Leave</a>
-            </li>
-            <li class="sidebar-list-item fs-6"><a class="sidebar-link text-muted ms-3"
-                    href="{{ route('leave.myLeaveBalance') }}"><i
-                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>My Leave Balance</a>
-            </li>
+        {{-- Manage Leave --}}
+        {{-- <li class="sidebar-list-item py-2 "><a class="sidebar-link text-muted " href="#"
+                data-bs-target="#componentsDropdown" role="button" aria-expanded="false" data-bs-toggle="collapse"><i
+                    class="fa-solid fa-person-walking-arrow-right me-2 text-info"></i>
+                <span class="sidebar-link-title fs-5">Leave</span></a>
+            <ul class="sidebar-menu   list-unstyled collapse " id="componentsDropdown">
+                <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
+                        href="{{ route('leave.leaveForm') }}"><i
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Apply
+                        Leave</a>
+                </li>
+                <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
+                        href="{{ route('leave.myLeave') }}"><i
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>My Leave</a>
+                </li>
+                <li class="sidebar-list-item fs-6"><a class="sidebar-link text-muted ms-3"
+                        href="{{ route('leave.myLeaveBalance') }}"><i
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>My Leave Balance</a>
+                </li>
 
-            <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
-                    href="{{ route('leave.leaveStatus') }}"><i
-                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Leave Request</a>
-            </li>
-            <li class="sidebar-list-item fs-6"><a class="sidebar-link text-muted ms-3"
-                    href="{{ route('leave.leaveType') }}"><i
-                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Leave Type</a>
-            </li>
-        </ul>
-    </li>
+                <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
+                        href="{{ route('leave.leaveStatus') }}"><i
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Leave Request</a>
+                </li>
+                <li class="sidebar-list-item fs-6"><a class="sidebar-link text-muted ms-3"
+                        href="{{ route('leave.leaveType') }}"><i
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Leave Type</a>
+                </li>
+            </ul>
+        </li> --}}
     </ul>
     <hr>
 
