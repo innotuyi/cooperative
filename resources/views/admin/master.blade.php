@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     @notifyCss
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Leave Management System</title>
+    <title>COTAVOGA MANAGMENT SYSTEM</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
@@ -138,7 +138,7 @@
 
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)" ;>
-            Leave Management System
+            COTAVOGA MANAGMENT SYSTEM
             </a>
         </div>
     </footer>

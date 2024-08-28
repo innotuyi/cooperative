@@ -10,7 +10,8 @@
         <span class="fw-bold ">{{ auth()->user()->name }}</span>
         <span>Welcome</span>
         <span>to</span>
-        <span>HR</span>
+        <span>COTAVOGA MANAGMENT SYSTEM
+        </span>
         <span>Platform👋</span>
         <hr>
     </p>

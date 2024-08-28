@@ -28,7 +28,7 @@
             <div class="text-left w-25 ">
                 <div class="card mb-4">
                     <div class="card-header py-3">
-                        <h5 class="text-uppercase">New Department</h5>
+                        <h5 class="text-uppercase">Guardians</h5>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('organization.department.store') }}" method="post">

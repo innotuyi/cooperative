@@ -4,7 +4,7 @@
             <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                 <div class="logo p-3">
                     <!-- Add your logo image or text here -->
-                    <a href="#"><img src="{{url('assests/image/Coat_of_arms_of_Rwanda.svg')}}" alt="Logo"
+                    <a href="#"><img src="{{url('assests/image/logo-cooperative.jpg')}}" alt="Logo"
                             class="img-fluid"></a>
                 </div>
             </div>
@@ -13,6 +13,7 @@
                 <div class="navigation">
                     <ul class="nav justify-content-end gap-3 fw-bold">
                         <li class="nav-item"><a class="nav-link text-dark" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" href="#">Mission and vision</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" href="#">Contact Us</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" href="#">About Us</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" href="#">Login</a></li>
