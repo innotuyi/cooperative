@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Guardian;
 use App\Models\Member;
+use App\Models\Properties;
 use App\Models\Share;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -180,9 +181,104 @@ class OrganizationController extends Controller
 
     public function properties()
     {
-        $departments = Member::all();
+        $departments = Properties::all();
         return view('admin.pages.Organization.Department.properties', compact('departments'));
     }
+
+    public function propertyStore(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'location' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        Properties::create($request->all());
+
+
+        return redirect()->route('organization.properties');
+
+    }
+
+    public function propertyEdit ($id) {
+
+        $department = Properties::find($id);
+
+        
+        if ($department) {
+            return view('admin.pages.Organization.Department.propertyEdit', compact('department'));
+        } else {
+            return redirect()->back()->with('error', 'property not found.');
+        }
+
+
+    }
+
+
+    public function propertyUpdate(Request $request, $id) {
+
+        // Validate the incoming request data
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'location' => 'nullable|string|max:255',
+        ]);
+      
+ 
+
+          // Check if validation fails
+          if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)      // Return with validation errors
+                ->withInput();                // Return with old input data
+        }
+        // Find the guardian by ID
+        $property = Properties::findOrFail($id);
+
+
+
+        // Update the guardian record
+        $property->update([
+            'name' => $request->name,
+            'location' =>  $request->location,
+          
+        ]);
+
+        notify()->success('Updated successfully.');
+
+        return redirect()->route('organization.properties');
+
+    }
+
+
+
+    public function deleteProperty($id) {
+
+        $department = Properties::find($id);
+        if ($department) {
+            $department->delete();
+        }
+        notify()->success('Property Deleted Successfully.');
+        return redirect()->back();
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     public function meeting()
     {

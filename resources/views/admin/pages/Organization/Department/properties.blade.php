@@ -31,7 +31,7 @@
                         <h6 class="text-uppercase">Add Property</h>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('organization.department.store') }}" method="post">
+                        <form action="{{ route('property.propertyStore') }}" method="post">
                             @csrf
                             <div class="row mb-4">
                                 <div class=" col">
@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Location</label>
-                                            <input placeholder="Enter Location" class="form-control" name="name"
+                                            <input placeholder="Enter Location" class="form-control" name="location"
                                                 id="" required>
                                         </div>
                                         
@@ -78,13 +78,16 @@
                         <tbody>
                             @foreach ($departments as $key => $item)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->department_name }}</td>
+                                <td>{{ $item->id}}</td>
+                                <td>{{ $item->name}}</td>
+                                <td>{{ $item->location}}</td>
+
+
                                 <td>
                                     <a class="btn btn-success rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.edit', $item->id) }}">Edit</a>
+                                        href="{{ route('property.propertyEdit', $item->id) }}">Edit</a>
                                     <a class="btn btn-danger rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.delete', $item->id) }}">Delete</a>
+                                        href="{{ route('property.deleteProperty', $item->id) }}">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

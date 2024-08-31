@@ -37,12 +37,29 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
 
-
-         
-
-
-
          Route::get('/Organization/properties', [OrganizationController::class, 'properties'])->name('organization.properties');
+
+         Route::post('/properties/propertyStore', [OrganizationController::class, 'propertyStore'])->name('property.propertyStore');
+
+         Route::get('/properties/propertyEdit/{id}', [OrganizationController::class, 'propertyEdit'])->name('property.propertyEdit');
+
+         Route::put('/properties/propertyUpdate/{id}', [OrganizationController::class, 'propertyUpdate'])->name('property.propertyUpdate');
+
+         Route::get('/properties/deleteProperty/{id}', [OrganizationController::class, 'deleteProperty'])->name('property.deleteProperty');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
          Route::get('/Organization/meeting', [OrganizationController::class, 'meeting'])->name('organization.meeting');
 
