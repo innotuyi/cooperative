@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('shares', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('memberID');
-            $table->float('amount');
-            $table->float('joining_date');
-            $table->float('amount_increase');
-            $table->float('interest_rate');
-            $table->float("total_share");
+            $table->float('amount')->nullable();
+            $table->date('joining_date')->nullable();
+            $table->float('amount_increase')->nullable();
+            $table->float('interest_rate')->nullable();
+            $table->float("total_share")->nullable();
             $table->foreign('memberID')->references('id')->on("members");
             $table->timestamps();
         });

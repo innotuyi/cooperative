@@ -62,7 +62,7 @@
                 <span class="sidebar-link-title fs-7">Manage Loan</span></a>
             <ul class="sidebar-menu   list-unstyled collapse " id="componentsDropdown">
                 <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
-                        href="{{ route('leave.leaveForm') }}"><i
+                        href="{{ route('loan.loanForm') }}"><i
                             class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Apply
                         Loan</a>
                 </li>
@@ -73,7 +73,7 @@
 
 
                 <li class="sidebar-list-item py-2 fs-6"><a class="sidebar-link text-muted ms-3"
-                        href="{{ route('leave.leaveStatus') }}"><i
+                        href="{{ route('loan.loanStatus') }}"><i
                             class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Loan Request</a>
                 </li>
 

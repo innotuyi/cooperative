@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('memberID');
             $table->float('amount');
-            $table->float('interest_rate');
+            $table->float('interest_rate')->nullable();
             $table->date('start_date');
             $table->date('end_date');
-            $table->boolean('status')->default(0);
+            $table->string('status')->default(0);
             $table->foreign('memberID')->references('id')->on("members");
             $table->timestamps();
         });

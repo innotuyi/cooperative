@@ -3,6 +3,7 @@
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\manageEmployeeController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
@@ -26,6 +27,21 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
          Route::get('/Organization/share', [OrganizationController::class, 'share'])->name('organization.share');
 
+         Route::post('/Organization/shareStore', [OrganizationController::class, 'shareStore'])->name('organization.shareStore');
+
+         Route::get('/share/edit/{id}', [OrganizationController::class, 'shareEdit'])->name('share.edit');
+
+         Route::put('/share/shareUpdate/{id}', [OrganizationController::class, 'shareUpdate'])->name('share.shareUpdate');
+
+         Route::get('/share/delete/{id}', [OrganizationController::class, 'shareDelete'])->name('share.delete');
+
+
+
+
+         
+
+
+
          Route::get('/Organization/properties', [OrganizationController::class, 'properties'])->name('organization.properties');
 
          Route::get('/Organization/meeting', [OrganizationController::class, 'meeting'])->name('organization.meeting');
@@ -36,12 +52,13 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
          Route::get('/Organization/agent', [OrganizationController::class, 'agent'])->name('organization.agent');
 
-
-
-
-
-
         Route::post('/Organization/department/store', [OrganizationController::class, 'store'])->name('organization.department.store');
+
+
+
+
+
+
         Route::get('/Organization/delete/{id}', [OrganizationController::class, 'delete'])->name('Organization.delete');
         Route::get('/Organization/edit/{id}', [OrganizationController::class, 'edit'])->name('Organization.edit');
         Route::put('/Organization/update/{id}', [OrganizationController::class, 'update'])->name('Organization.update');
@@ -61,7 +78,7 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
         // Leave
-        Route::get('/Leave/LeaveStatus', [LeaveController::class, 'leaveList'])->name('leave.leaveStatus');
+        Route::get('/Loan/loanStatus', [LeaveController::class, 'LoanList'])->name('loan.loanStatus');
         Route::get('/Leave/allLeaveReport', [LeaveController::class, 'allLeaveReport'])->name('allLeaveReport');
         Route::get('/searchLeaveList', [LeaveController::class, 'searchLeaveList'])->name('searchLeaveList');
 
@@ -98,10 +115,9 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
         // Leave Routes for Employee
-        Route::get('/Leave/LeaveForm', [LeaveController::class, 'leave'])->name('leave.leaveForm');
-        Route::post('/Leave/store', [LeaveController::class, 'store'])->name('leave.store');
+        Route::get('/loan/loanForm', [LoanController::class, 'loan'])->name('loan.loanForm');
+        Route::post('/Leave/store', [LoanController::class, 'store'])->name('leave.store');
         Route::get('/Leave/myLeave', [LeaveController::class, 'myLeave'])->name('leave.myLeave');
-        Route::get('/Leave/myLeaveBalance', [LeaveController::class, 'showLeaveBalance'])->name('leave.myLeaveBalance');
         Route::get('/Leave/myLeaveReport', [LeaveController::class, 'myLeaveReport'])->name('myLeaveReport');
         Route::get('/searchMyLeave', [LeaveController::class, 'searchMyLeave'])->name('searchMyLeave');
         // user profile

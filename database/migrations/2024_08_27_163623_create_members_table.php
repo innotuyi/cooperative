@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('guardID');
-            $table->unsignedTinyInteger('phone');
-            $table->unsignedBigInteger('idCard');
+            $table->string('phone', 10); // Phone number stored as a string with a max length of 10
+            $table->string('idcard', 16); // ID card number stored as a string with a max length of 16
             $table->string('district');
             $table->string('sector');
             $table->foreign('guardID')->references('id')->on("guardians");

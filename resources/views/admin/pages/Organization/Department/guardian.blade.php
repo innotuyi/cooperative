@@ -74,7 +74,7 @@
             </div>
 
             {{-- Department Table start --}}
-            <div class="w-75 card">
+            <div class="w-90 card">
                 <div>
                     <table class="table align-middle mb-4 text-center bg-white">
                         <thead class="bg-light">
@@ -83,17 +83,21 @@
                                 <th>Name</th>
                                 <th>National ID</th>
                                 <th>Telephone</th>
-                                <th>District</th>
-                                <th>Sector</th>
 
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($departments as $key => $item)
+                            @foreach ($guardians as  $item)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->department_name }}</td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->idcard }}</td>
+
+
+                                
+
                                 <td>
                                     <a class="btn btn-success rounded-pill fw-bold text-white"
                                         href="{{ route('Organization.edit', $item->id) }}">Edit</a>

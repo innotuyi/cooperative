@@ -4,8 +4,7 @@
 <div class="shadow p-4 d-flex justify-content-between align-items-center ">
     <h4 class="text-uppercase">My Leave</h4>
     <div>
-        <a href="{{ route('leave.leaveForm') }}" class="btn btn-success p-2  px-3 text-lg rounded-pill">Apply for
-            Leave</a>
+        <a href="{{ route('loan.loanForm') }}" class="btn btn-success p-2  px-3 text-lg rounded-pill">Apply for Leave</a>
     </div>
 </div>
 <div class="container my-5 py-5">
@@ -29,30 +28,25 @@
     <table class="table align-middle text-center table-hover  bg-white">
         <thead class="bg-light">
             <tr>
-                <th>SL NO</th>
-                <th>Leave Type</th>
+                <th>Member ID</th>
+                <th>Amount</th>
+                <th>Interest Rate</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Total Days</th>
-                <th>Description</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($leaves as $key => $leave)
+            @foreach ($leaves as $leave)
             <tr>
+                <td>{{ $leave->memberID }}</td>
+                <td>{{ $leave->amount }}</td>
+                <td>{{ $leave->interest_rate }}</td>
+                <td>{{ $leave->start_date }}</td>
+                <td>{{ $leave->end_date }}</td>
+                <td>{{ $leave->status }}</td>
                 <td>
-                    <div>
-                        <p class="fw-bold mb-1">{{ $key + 1 }}</p>
-                    </div>
-                </td>
-                <td>{{ $leave->type->leave_type_id }}</td>
-                <td>{{ $leave->from_date }}</td>
-                <td>{{ $leave->to_date }}</td>
-                <td>{{ $leave->total_days }}</td>
-                <td>{{ $leave->description }}</td>
-                <td>
-                    @if($leave->status === 'approved')
+                    @if($leave->status === 1)
                     <span class="text-white fw-bold bg-green rounded-pill p-2">Accepted</span>
                     @elseif($leave->status === 'rejected')
                     <span class="text-white fw-bold bg-red rounded-pill p-2">Rejected</span>

@@ -7,6 +7,8 @@ use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Leave;
 use App\Models\LeaveType;
+use App\Models\Loan;
+use App\Models\Member;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,38 +17,25 @@ use Illuminate\Support\Facades\Validator;
 class LeaveController extends Controller
 {
 
-    public function leave()
+    public function loan()
     {
         $leaves = Leave::all();
+        $departments = Member::all();
         $leaveTypes = LeaveType::all();
-        return view('admin.pages.Leave.leaveForm', compact('leaves', 'leaveTypes'));
+        return view('admin.pages.Leave.leaveForm', compact('leaves', 'leaveTypes', 'departments'));
     }
-    public function leaveList()
+    public function LoanList()
     {
 
-        $leaves = Leave::all();
+        $leaves = Loan::all();
         return view('admin.pages.Leave.leaveList', compact('leaves'));
     }
 
 
     public function myLeave()
     {
-        // $userId = auth()->user()->id;
 
-        // if (auth()->check()) {
-        //     $userId = auth()->user()->id;
-        //     $leaves = Leave::where('employee_id', $userId)
-        //     ->with(['type'])
-        //     ->paginate(5);
-        // } else {
-        //     // Handle the case where the user is not authenticated
-    //     // For example, redirect to the login page or show an error message
-        //     return redirect()->route('dashboard')->with('error', 'You need to be logged in to access this page.');
-        // }
-
-        $leaves = [];
-        
-
+        $leaves = Loan::all();
         return view('admin.pages.Leave.myLeave', compact('leaves'));
     }
 
@@ -204,8 +193,8 @@ class LeaveController extends Controller
     // Approve and Reject Leave
     public function approveLeave($id)
     {
-        $leave = Leave::find($id);
-        $leave->status = 'approved'; // Assuming 'status' is a field in your 'leaves' table
+        $leave = Loan::find($id);
+        $leave->status = 1; // Assuming 'status' is a field in your 'leaves' table
         $leave->save();
 
         // notify()->success('Leave approved');
@@ -284,124 +273,6 @@ class LeaveController extends Controller
         }
     }
 
-
-    // leave Balance
-
-    // public function showLeaveBalance()
-    // {
-    //     $userId = auth()->user()->id;
-
-    //     // Retrieve leaves with type for the current user in the current year
-    //     $leaves = Leave::where('employee_id', $userId)
-    //         ->whereYear('from_date', '=', date('Y'))
-    //         ->where('status', 'approved') // Only consider approved leaves
-    //         ->with('type')
-    //         ->get();
-
-    //     // Initialize variables
-    //     $leaveTypeBalances = [];
-    //     $totalTakenDays = 0;
-
-    //     // Calculate leave balances
-    //     foreach ($leaves as $leave) {
-    //         $leaveType = $leave->type->leave_type_id;
-
-    //         if (!isset($leaveTypeBalances[$leaveType])) {
-    //             $leaveLimit = $leave->type->leave_days;
-
-    //             $leaveTypeBalances[$leaveType] = [
-    //                 'leaveType' => $leave->type->name,
-    //                 'totalDays' => $leaveLimit,
-    //                 'takenDays' => 0,
-    //                 'availableDays' => $leaveLimit,
-    //             ];
-    //         }
-
-    //         // Update taken and available days
-    //         $leaveTypeBalances[$leaveType]['takenDays'] += $leave->total_days;
-    //         $leaveTypeBalances[$leaveType]['availableDays'] -= $leave->total_days;
-
-    //         $totalTakenDays += $leave->total_days; // Track total taken days
-    //     }
-
-    //     return view('admin.pages.Leave.myLeaveBalance', compact('leaveTypeBalances', 'totalTakenDays'));
-    // }
-
-
-
-
-
-
-    public function showLeaveBalance()
-    {
-        $userId = auth()->user()->id;
-        $designation = auth()->user()->employee->designation->designation_name;
-
-       // Define leave days based on designations
-        $designationLeaveDays = [
-            'Android Developer' => 20,
-            'Web Developer' => 20,
-            'Manager' => 25,
-            'Software Developer' => 20,
-            'IT Director' => 25,
-            'System Administrator' => 25,
-            'Content Creator' => 20,
-            'Chief Financial Officer' => 25,
-            'Sales Director' => 25,
-            'Sales Support Specialist' => 20,
-            'Customer Support' => 20,
-        ];
-
-        $leaveTypeBalances = [];
-        $totalTakenDays = 0;
-
-        $leaves = Leave::where('employee_id', $userId)
-            ->whereYear('from_date', '=', date('Y'))
-            ->with('type')
-            ->get();
-
-        foreach ($leaves as $leave) {
-            $leaveType = $leave->type->leave_type_id;
-            $leaveLimit = $leave->type->leave_days;
-
-            if (!isset($leaveTypeBalances[$leaveType])) {
-                $leaveTypeBalances[$leaveType] = [
-                    'totalDays' => $leaveLimit,
-                    'takenDays' => 0,
-                    'availableDays' => $leaveLimit,
-                ];
-            }
-
-            if ($leave->status === 'approved') {
-                $leaveTypeBalances[$leaveType]['takenDays'] += $leave->total_days;
-                $leaveTypeBalances[$leaveType]['availableDays'] -= $leave->total_days;
-
-                $totalTakenDays += $leave->total_days;
-            }
-        }
-
-        // Update available days based on designation
-        $availableDays = $designationLeaveDays[$designation] - $totalTakenDays;
-        $leaveTypeBalances[$designation] = [
-            'totalDays' => $designationLeaveDays[$designation],
-            'takenDays' => $totalTakenDays,
-            'availableDays' => $availableDays,
-        ];
-         $leaveTypeBalances =2;
-         $totalTakenDays = 3;
-         $designationLeaveDays =3;
-         $designation = 3;
-         $availableDays = 27;
-
-        return view('admin.pages.Leave.myLeaveBalance', compact('leaveTypeBalances', 'totalTakenDays', 'designationLeaveDays', 'designation', 'availableDays'));
-    }
-
-
-
-
-
-
-
     // single employee report
     public function allLeaveReport()
     {
@@ -413,19 +284,7 @@ class LeaveController extends Controller
     }
 
 
-    // single employee leave
-    public function myLeaveReport()
-    {
-        $userId = auth()->user()->id;
 
-        // Retrieve only approved leave records for the authenticated user
-        $leaves = Leave::where('employee_id', $userId)
-            ->where('status', 'approved') // Fetch only approved leaves
-            ->with(['type'])
-            ->paginate(5);
-
-        return view('admin.pages.Leave.myLeaveReport', compact('leaves'));
-    }
 
     // search leaveList
     public function searchLeaveList(Request $request)
@@ -452,35 +311,5 @@ class LeaveController extends Controller
         $leaves = $query->paginate(5);
 
         return view('admin.pages.Leave.searchLeaveList', compact('leaves'));
-    }
-
-
-
-
-
-    // search my leave
-    public function searchMyLeave(Request $request)
-    {
-        $userId = auth()->user()->id;
-        $searchTerm = $request->search;
-
-        $query = Leave::where('employee_id', $userId)->with('type');
-
-        if ($searchTerm) {
-            $query->where(function ($q) use ($searchTerm) {
-                $q->whereHas('type', function ($typeQuery) use ($searchTerm) {
-                    $typeQuery->where('leave_type_id', 'LIKE', '%' . $searchTerm . '%');
-                })
-                    ->orWhere('from_date', 'LIKE', '%' . $searchTerm . '%')
-                    ->orWhere('to_date', 'LIKE', '%' . $searchTerm . '%')
-                    ->orWhere('total_days', 'LIKE', '%' . $searchTerm . '%')
-                    ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
-                    ->orWhere('status', 'LIKE', '%' . $searchTerm . '%');
-            });
-        }
-
-        $leaves = $query->paginate(5);
-
-        return view('admin.pages.Leave.searchMyLeave', compact('leaves'));
     }
 }

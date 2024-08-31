@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('guardians', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedTinyInteger('phone');
-            $table->unsignedBigInteger('idCard');
-            $table->string('district');
-            $table->string('sector');
+            $table->string('name'); // Guardian's name
+            $table->string('phone', 10); // Phone number stored as a string with a max length of 10
+            $table->string('idcard', 16); // ID card number stored as a string with a max length of 16
+            $table->string('district'); // District name
+            $table->string('sector'); // Sector name
             $table->timestamps();
         });
     }

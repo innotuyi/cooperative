@@ -31,7 +31,7 @@
                         <h6 class="text-uppercase">Add Member</h>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('organization.department.store') }}" method="post">
+                        <form action="{{ route('organization.department.member.store') }}" method="post">
                             @csrf
                             <div class="row mb-4">
                                 <div class=" col">
@@ -40,6 +40,15 @@
                                             <label class="form-label mt-2" for="form11Example1">Names</label>
                                             <input placeholder="Enter Name" class="form-control" name="name"
                                                 id="" required>
+                                        </div>
+                                        <div class="form-outline">
+                                            <label class="form-label mt-2" for="form11Example1">Guardian</label>
+                                            <select type="text" class="form-control" name="guardID">
+                                                @foreach ($departments as $department)
+                                                <option value="{{$department->id}}">{{ $department->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1" min=1>National ID</label>
@@ -81,19 +90,20 @@
                             <tr>
                                 <th>NO</th>
                                 <th>Name</th>
-                                <th>National ID</th>
+                                <th>Guardian</th>
                                 <th>Telephone</th>
                                 <th>District</th>
-                                <th>Sector</th>
-
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($departments as $key => $item)
+                            @foreach ($members as $key => $item)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->department_name }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->guardian_name }}</td>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->district }}</td>
                                 <td>
                                     <a class="btn btn-success rounded-pill fw-bold text-white"
                                         href="{{ route('Organization.edit', $item->id) }}">Edit</a>

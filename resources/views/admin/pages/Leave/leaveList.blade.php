@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="shadow p-4 d-flex justify-content-between align-items-center">
-    <h4 class="text-uppercase">Leave Request</h4>
+    <h4 class="text-uppercase">Loan Request Status</h4>
 </div>
 <div class="my-5 py-5">
 
@@ -24,30 +24,26 @@
     <table class="table align-middle text-center w-100 bg-white">
         <thead class="bg-light">
             <tr>
-                <th>SL NO</th>
-                <th>Employee Name</th>
-                <th>Department</th>
-                <th>Designation</th>
-                <th>Leave Type</th>
+                <th>N/0</th>
+                <th>Member ID</th>
+                <th>Amount</th>
+                <th>Interest Rate</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Total Days</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($leaves as $leave)
             <tr>
-               
-                <td>{{ $leave->employee_name }}</td>
-                <td>{{ $leave->department_name }}</td>
-                <td>{{ $leave->designation_name }}</td>
-                {{-- <td>{{ $leave->type->leave_type_id }}</td> --}}
-                <td>{{ $leave->from_date }}</td>
-                <td>{{ $leave->to_date }}</td>
-                <td>{{ $leave->total_days }}</td> <!-- Display total_days -->
-                <td>{{ $leave->description }}</td>
+                <td>{{ $leave->id }}</td>
+                <td>{{ $leave->memberID }}</td>
+                <td>{{ $leave->amount }}</td>
+                <td>{{ $leave->interest_rate }}</td>
+                <td>{{ $leave->start_date }}</td>
+                <td>{{ $leave->end_date }}</td>
+                <td>{{ $leave->status }}</td>
+
                 <td>
                     @if ($leave->status == 'approved')
                     <span class="text-white fw-bold bg-green rounded-pill p-2">Approved</span>
