@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Guardian;
+use App\Models\Meeting;
 use App\Models\Member;
 use App\Models\Properties;
 use App\Models\Share;
@@ -270,21 +271,96 @@ class OrganizationController extends Controller
 
     }
 
-
-
-
-
-
-
-
-
-
-
+    
     public function meeting()
     {
-        $departments = Member::all();
+        $departments = Meeting::all();
         return view('admin.pages.Organization.Department.meeting', compact('departments'));
     }
+
+
+
+    public function meetingStore(Request $request) {
+
+
+        $validate = Validator::make($request->all(), [
+            'topic' => 'required|string|max:255',
+            'descritption' => 'required|string|max:500',
+        ]);
+
+
+        if ($validate->fails()) {
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput();
+        }
+
+        Meeting::create($request->all());
+
+
+        return redirect()->route('organization.meeting');
+
+
+
+    }
+
+    public function meetingEdit( Request $request, $id){
+
+        $department = Meeting::find($id) ;
+
+
+                
+        if ($department) {
+            return view('admin.pages.Organization.Department.meetingEdit', compact('department'));
+        } else {
+            return redirect()->back()->with('error', 'meeting not found.');
+        }
+
+    }
+
+
+    public function meetingUpdate(Request $request, $id){
+
+        $validate = Validator::make($request->all(), [
+            'topic' => 'required|string|max:255',
+            'descritption' => 'required|string|max:500',
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput();
+        }
+
+        $meeting = Meeting::findOrFail($id);
+
+        $meeting->update($request->all());;
+
+            return redirect()->route('organization.meeting')
+            ->with('success', 'Meeting deleted successfully.');
+
+
+    }
+
+
+    public function deleteMeeting($id) {
+
+
+        $meeting = Meeting::findOrFail($id);
+        $meeting->delete();
+
+        return redirect()->route('organization.meeting')
+            ->with('success', 'Meeting deleted successfully.');
+    }
+
+
+
+
+
+
+
+
+
 
 
 

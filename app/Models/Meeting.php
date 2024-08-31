@@ -11,7 +11,7 @@ class Meeting extends Model
 
     protected $fillable = [
         'topic',
-        'description'
+        'descritption'
 
     ];
 }

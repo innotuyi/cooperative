@@ -50,18 +50,27 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
 
-
-
-
-
-
-
-
-
-
-
-
          Route::get('/Organization/meeting', [OrganizationController::class, 'meeting'])->name('organization.meeting');
+
+         Route::post('/meeting/meetingStore', [OrganizationController::class, 'meetingStore'])->name('meeting.meetingStore');
+
+         Route::get('/meeting/meetingEdit/{id}', [OrganizationController::class, 'meetingEdit'])->name('meeting.meetingEdit');
+
+         Route::put('/meeting/meetingUpdate/{id}', [OrganizationController::class, 'meetingUpdate'])->name('meeting.meetingUpdate');
+
+         Route::get('/meeting/deletemeeting/{id}', [OrganizationController::class, 'deleteMeeting'])->name('meeting.deleteMeeting');
+
+
+
+
+
+
+
+
+
+
+
+
 
          Route::get('/Organization/punishment', [OrganizationController::class, 'punishment'])->name('organization.punishment');
 

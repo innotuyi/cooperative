@@ -6,6 +6,16 @@
 </div>
 <div class="container my-5 py-5">
 
+    @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
     <!--Section: Form Design Block-->
     <section>
 
@@ -28,29 +38,25 @@
             <div class="text-left w-30 ">
                 <div class="card mb-4">
                     <div class="card-header py-3">
-                        <h6 class="text-uppercase">Add Property</h>
+                        <h6 class="text-uppercase">Meeting Report</h>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('organization.department.store') }}" method="post">
+                        <form action="{{ route('meeting.meetingStore') }}" method="post">
                             @csrf
                             <div class="row mb-4">
                                 <div class=" col">
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label mt-2" for="form11Example1">Names</label>
-                                            <input placeholder="Enter Name" class="form-control" name="name"
+                                            <label class="form-label mt-2" for="form11Example1">Topic</label>
+                                            <input placeholder="Enter Name" class="form-control" name="topic"
                                                 id="" required>
                                         </div>
                                         <div class="form-outline">
-                                            <label class="form-label mt-2" for="form11Example1">Location</label>
-                                            <input placeholder="Enter Location" class="form-control" name="name"
+                                            <label class="form-label mt-2" for="form11Example1">Description</label>
+                                            <input placeholder="Enter Location" class="form-control" name="descritption"
                                                 id="" required>
                                         </div>
-                                        
-                                        
-                                        
-                                        
-             
+
 
                                     </div>
                                 </div>
@@ -70,21 +76,23 @@
                         <thead class="bg-light">
                             <tr>
                                 <th>NO</th>
-                                <th>Name</th>
-                                <th>Location</th>
+                                <th>Topic</th>
+                                <th>Description</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($departments as $key => $item)
+                            @foreach ($departments as $item)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->department_name }}</td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->topic}}</td>
+                                <td>{{ $item->descritption}}</td>
+
                                 <td>
                                     <a class="btn btn-success rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.edit', $item->id) }}">Edit</a>
+                                        href="{{ route('meeting.meetingEdit', $item->id) }}">Edit</a>
                                     <a class="btn btn-danger rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.delete', $item->id) }}">Delete</a>
+                                        href="{{ route('meeting.deleteMeeting', $item->id) }}">Delete</a>
                                 </td>
                             </tr>
                             @endforeach
