@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class AgentProfit extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+
+        'agent_id',
+        'profit',
+        'month',
+    ];
 }

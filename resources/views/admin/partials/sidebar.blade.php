@@ -170,7 +170,7 @@
                             class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Category</a>
                 </li> --}}
                 <li class="sidebar-list-item py-2  fs-6"><a class="sidebar-link text-muted ms-3"
-                    href="{{ route('organization.expenduture') }}"><i
+                    href="{{ route('organization.agentProfit') }}"><i
                         class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Profit</a>
             </li>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\AgentProfit;
 use App\Models\Department;
 use App\Models\Expenditure;
 use App\Models\ExpenditureCategory;
@@ -443,7 +444,8 @@ class OrganizationController extends Controller
 
         return view('admin.pages.Organization.Department.expendutureCategory', compact('departments'));
     }
-    public function expendutureCategoryStore(Request $request) {
+    public function expendutureCategoryStore(Request $request)
+    {
 
 
         $request->validate([
@@ -453,21 +455,21 @@ class OrganizationController extends Controller
         ExpenditureCategory::create($request->all());
 
         return redirect()->route('organization.expendutureCategory')
-                         ->with('success', 'Expenditure category created successfully.');
-
+            ->with('success', 'Expenditure category created successfully.');
     }
 
 
-    public function expendutureCategoryEdit($id) {
+    public function expendutureCategoryEdit($id)
+    {
 
 
         $department = ExpenditureCategory::findOrFail($id);
 
         return view('admin.pages.Organization.Department.expendutureEdit', compact('department'));
-
     }
 
-    public function expendutureCategoryUpdate(Request $request, $id) {
+    public function expendutureCategoryUpdate(Request $request, $id)
+    {
 
 
         $request->validate([
@@ -478,18 +480,17 @@ class OrganizationController extends Controller
         $category->update($request->all());
 
         return redirect()->route('organization.expendutureCategory')
-                         ->with('success', 'Expenditure category updated successfully.');
-
+            ->with('success', 'Expenditure category updated successfully.');
     }
 
-    public function expendutureCategoryDelete($id) {
+    public function expendutureCategoryDelete($id)
+    {
 
         $category = ExpenditureCategory::findOrFail($id);
         $category->delete();
 
         return redirect()->route('organization.expendutureCategory')
-                         ->with('success', 'Expenditure category deleted successfully.');
-
+            ->with('success', 'Expenditure category deleted successfully.');
     }
 
     public function expenduture()
@@ -500,57 +501,60 @@ class OrganizationController extends Controller
             'expenditures.*',
             'expenditure_categories.name as category_name'
         )
-        ->join('expenditure_categories', 'expenditures.category_id', '=', 'expenditure_categories.id')
-        ->get();   
+            ->join('expenditure_categories', 'expenditures.category_id', '=', 'expenditure_categories.id')
+            ->get();
         return view('admin.pages.Organization.Department.expenduture', compact('departments', 'expenditures'));
     }
 
 
-    public function expendutureStore(Request $request) {
+    public function expendutureStore(Request $request)
+    {
 
 
-         // Create the validator instance using Validator::make
-    $validator = Validator::make($request->all(), [
-        'category_id' => 'required|exists:expenditure_categories,id',
-        'description' => 'nullable|string',
-        'amount' => 'required|numeric',
-        'date' => 'required|date',
-        'paid_to' => 'nullable|string',
-        'employee_id' => 'nullable|exists:employees,id',
-    ]);
+        // Create the validator instance using Validator::make
+        $validator = Validator::make($request->all(), [
+            'category_id' => 'required|exists:expenditure_categories,id',
+            'description' => 'nullable|string',
+            'amount' => 'required|numeric',
+            'date' => 'required|date',
+            'paid_to' => 'nullable|string',
+            'employee_id' => 'nullable|exists:employees,id',
+        ]);
 
-    // Check if validation fails
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)      // Return with validation errors
-            ->withInput();                // Return with old input data
-    }
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)      // Return with validation errors
+                ->withInput();                // Return with old input data
+        }
         $data = $request->all();
         $data['date'] = Carbon::parse($request->date)->toDateString();
-    
+
         // Create the expenditure with the parsed date
         Expenditure::create($data);
 
         return redirect()->route('organization.expenduture')
-        ->with('success', 'Expenditure  created successfully.');    }
+            ->with('success', 'Expenditure  created successfully.');
+    }
 
-    public function expendutureEdit($id) {
+    public function expendutureEdit($id)
+    {
 
-       // $expenditure = Expenditure::findOrFail($id);
+        // $expenditure = Expenditure::findOrFail($id);
         $department = Expenditure::select(
             'expenditures.*',                          // Select all fields from the expenditures table
             'expenditure_categories.name as category_name' // Join and select category name
         )
-        ->join('expenditure_categories', 'expenditures.category_id', '=', 'expenditure_categories.id')
-        ->where('expenditures.id', $id)                // Filter by the expenditure ID
-        ->firstOrFail();                               // Retrieve the first matching result or fail if not found
-    
+            ->join('expenditure_categories', 'expenditures.category_id', '=', 'expenditure_categories.id')
+            ->where('expenditures.id', $id)                // Filter by the expenditure ID
+            ->firstOrFail();                               // Retrieve the first matching result or fail if not found
+
         //$employees = Employee::all();
         return view('admin.pages.Organization.Department.expendutureEdit', compact('department'));
-
     }
 
-    public function  expendutureUpdate(Request $request, $id) {
+    public function  expendutureUpdate(Request $request, $id)
+    {
 
 
 
@@ -558,7 +562,7 @@ class OrganizationController extends Controller
 
         // Parse and format the 'date' using Carbon
         $formattedDate = Carbon::parse($request->input('date'))->format('Y-m-d');
-        
+
         // Update the expenditure, passing the Carbon date separately
         $expenditure->update([
             'description' => $request->input('description'),
@@ -568,29 +572,18 @@ class OrganizationController extends Controller
             'employee_id' => $request->input('employee_id'),
         ]);
         return redirect()->route('organization.expenduture')
-                         ->with('success', 'Expenditure updated successfully.');
-
-
-
+            ->with('success', 'Expenditure updated successfully.');
     }
 
-    public function expendutureDelete($id) {
+    public function expendutureDelete($id)
+    {
 
 
         $expenditure = Expenditure::findOrFail($id);
         $expenditure->delete();
 
         return redirect()->route('organization.expenduture');
-
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -604,12 +597,9 @@ class OrganizationController extends Controller
         return view('admin.pages.Organization.Department.agent', compact('departments'));
     }
 
-
-
-
     public function agentStore(Request $request)
     {
-        $validator =Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'service' => 'required|string|max:255',
             'contact' => 'nullable|string|max:255',
@@ -651,14 +641,104 @@ class OrganizationController extends Controller
         return redirect()->route('organization.agent')->with('success', 'Agent updated successfully.');
     }
 
-     public function agentDelete($id) {
+    public function agentDelete($id)
+    {
 
         $agent = Agent::findOrFail($id);
         $agent->delete();
         return redirect()->route('organization.agent')->with('success', 'Agent deleted successfully.');
+    }
 
 
-     }
+
+    public function agentProfit()
+    {
+
+        $departments = Agent::all();
+
+        $agentProfits = AgentProfit::join('agents', 'agent_profits.agent_id', '=', 'agents.id')
+            ->select('agent_profits.*', 'agents.name as agent_name', 'agents.service as agent_service')
+            ->get();
+
+        return view('admin.pages.Organization.Department.agentProfit', compact('departments', 'agentProfits'));
+    }
+
+
+    public function agentProfitStore(Request $request)
+    {
+
+
+        $validator = Validator::make($request->all(), [
+            'agent_id' => 'required|exists:agents,id',
+            'profit' => 'required|numeric',
+            'month' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        AgentProfit::create($request->all());
+
+        return redirect()->route('organization.agentProfit')->with('success', 'Agent Profit added successfully.');
+    }
+
+
+    public function agentProfitEdit($id)
+    {
+
+        $department =  AgentProfit::select(
+            'agent_profits.*',
+            'agents.name as agent_name',
+            'agents.service as agent_service',
+            'agents.contact as agent_contact',
+            'agents.location as agent_location'
+        )
+            ->join('agents', 'agent_profits.agent_id', '=', 'agents.id')
+            ->where('agent_profits.id', $id)
+            ->firstOrFail();
+
+        $agents = Agent::all();
+        return view('admin.pages.Organization.Department.editAgentProfit', compact('department', 'agents'));
+    }
+
+    public function agentProfitUpdate(Request $request, $id)
+    {
+       // Use Validator::make to handle validation manually
+    $validator = Validator::make($request->all(), [
+        // 'agent_id' => 'required|exists:agents,id',
+        'profit' => 'required|numeric',
+        'month' => 'required|string',
+    ]);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)  // Return with validation errors
+            ->withInput();            // Return the input data
+    }
+
+    // If validation passes, proceed with the update
+    $validated = $validator->validated();
+
+    $agentProfit = AgentProfit::findOrFail($id);
+    $agentProfit->update($validated);
+
+
+        return redirect()->route('organization.agentProfit')->with('success', 'Agent Profit updated successfully.');
+    }
+
+
+    public function agentProfitDelete($id)
+    {
+        $agentProfit = AgentProfit::findOrFail($id);
+        $agentProfit->delete();
+        return redirect()->route('organization.agentProfit')->with('success', 'Agent Profit deleted successfully.');
+    }
+
+
+
+
 
 
 

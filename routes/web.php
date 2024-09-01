@@ -103,6 +103,24 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
 
+       Route::get('/Organization/agentProfit', [OrganizationController::class, 'agentProfit'])->name('organization.agentProfit');
+
+       Route::post('/Organization/agentProfitStore', [OrganizationController::class, 'agentProfitStore'])->name('organization.agentProfitStore');
+
+       Route::get('/Organization/agentProfitEdit/{id}', [OrganizationController::class, 'agentProfitEdit'])->name('organization.agentProfitEdit');
+
+       Route::put('/Organization/agentProfitUpdate/{id}', [OrganizationController::class, 'agentProfitUpdate'])->name('organization.agentProfitUpdate');
+
+       Route::get('/Organization/agentProfitDelete/{id}', [OrganizationController::class, 'agentProfitDelete'])->name('organization.agentProfitDelete');
+
+
+
+
+
+
+
+
+
 
 
 
