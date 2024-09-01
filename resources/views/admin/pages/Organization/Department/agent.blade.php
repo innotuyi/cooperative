@@ -31,7 +31,7 @@
                         <h6 class="text-uppercase">Add Agent</h>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('organization.department.store') }}" method="post">
+                        <form action="{{ route('agent.agentStore') }}" method="post">
                             @csrf
                             <div class="row mb-4">
                                 <div class=" col">
@@ -43,17 +43,17 @@
                                         </div>
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1" min=1>Service</label>
-                                            <input type="text"  class="form-control" name="idcard"
+                                            <input type="text"  class="form-control" name="service"
                                                 id="" required>
                                         </div>
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1" min=1>Contact</label>
-                                            <input type="text"  class="form-control" name="idcard"
+                                            <input type="text"  class="form-control" name="contact"
                                                 id="" required>
                                         </div>
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Location</label>
-                                            <input type="date" placeholder="Enter location" class="form-control" name="phone"
+                                            <input type="text" placeholder="Enter location" class="form-control" name="location"
                                                 id="" required>
                                         </div>
                                         
@@ -89,13 +89,19 @@
                         <tbody>
                             @foreach ($departments as $key => $item)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->department_name }}</td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->service }}</td>
+                                <td>{{ $item->contact }}</td>
+                                <td>{{ $item->location }}</td>
+
+
+
                                 <td>
                                     <a class="btn btn-success rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.edit', $item->id) }}">Edit</a>
+                                        href="{{ route('agent.agentEdit', $item->id) }}">Edit</a>
                                     <a class="btn btn-danger rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.delete', $item->id) }}">Delete</a>
+                                        href="{{ route('agent.agentDelete', $item->id) }}">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

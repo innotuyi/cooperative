@@ -94,6 +94,11 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
          Route::get('/expenduture/expendutureDelete/{id}', [OrganizationController::class, 'expendutureDelete'])->name('expenduture.expendutureDelete');
 
 
+       Route::get('/Organization/agent', [OrganizationController::class, 'agent'])->name('organization.agent');
+       Route::post('/agent/agentStore', [OrganizationController::class, 'agentStore'])->name('agent.agentStore');
+       Route::get('/agent/agentEdit/{id}', [OrganizationController::class, 'agentEdit'])->name('agent.agentEdit');
+       Route::put('/agent/agentUpdate/{id}', [OrganizationController::class, 'agentUpdate'])->name('agent.agentUpdate');
+       Route::get('/agent/agentDelete/{id}', [OrganizationController::class, 'agentDelete'])->name('agent.agentDelete');
 
 
 
@@ -106,7 +111,12 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
 
-         Route::get('/Organization/agent', [OrganizationController::class, 'agent'])->name('organization.agent');
+
+
+
+
+
+
 
         Route::post('/Organization/department/store', [OrganizationController::class, 'store'])->name('organization.department.store');
 

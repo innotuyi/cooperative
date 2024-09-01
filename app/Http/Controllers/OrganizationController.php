@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\Department;
 use App\Models\Expenditure;
 use App\Models\ExpenditureCategory;
@@ -598,10 +599,84 @@ class OrganizationController extends Controller
 
     public function agent()
     {
-        $departments = Member::all();
+        $departments = Agent::all();
 
         return view('admin.pages.Organization.Department.agent', compact('departments'));
     }
+
+
+
+
+    public function agentStore(Request $request)
+    {
+        $validator =Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'service' => 'required|string|max:255',
+            'contact' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        Agent::create($request->all());
+        return redirect()->route('organization.agent')->with('success', 'Agent created successfully.');
+    }
+
+    public function agentEdit($id)
+    {
+        $department = Agent::find($id);
+
+        return view('admin.pages.Organization.Department.editAgent', compact('department'));
+    }
+
+    public function agentUpdate(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'service' => 'required|string|max:255',
+            'contact' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $agent = Agent::findOrFail($id);
+
+        $agent->update($request->all());
+
+        return redirect()->route('organization.agent')->with('success', 'Agent updated successfully.');
+    }
+
+     public function agentDelete($id) {
+
+        $agent = Agent::findOrFail($id);
+        $agent->delete();
+        return redirect()->route('organization.agent')->with('success', 'Agent deleted successfully.');
+
+
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
