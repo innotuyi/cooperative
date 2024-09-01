@@ -77,32 +77,34 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
          Route::get('/Organization/expendutureCategory', [OrganizationController::class, 'expendutureCategory'])->name('organization.expendutureCategory');
-
          Route::post('/expendutureCategory/expendutureCategoryStore', [OrganizationController::class, 'expendutureCategoryStore'])->name('organization.expendutureCategoryStore');
-         
          Route::get('/expendutureCategory/expendutureCategoryEdit/{id}', [OrganizationController::class, 'expendutureCategoryEdit'])->name('organization.expendutureCategoryEdit');
-
          Route::put('/expendutureCategory/expendutureCategoryUpdate/{id}', [OrganizationController::class, 'expendutureCategoryUpdate'])->name('organization.expendutureCategoryUpdate');
-
          Route::get('/expendutureCategory/expendutureCategoryDelete{id}', [OrganizationController::class, 'expendutureCategoryDelete'])->name('organization.expendutureCategoryDelete');
 
 
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
          Route::get('/Organization/expenduture', [OrganizationController::class, 'expenduture'])->name('organization.expenduture');
+
+         Route::post('/expenduture/expendutureStore', [OrganizationController::class, 'expendutureStore'])->name('expenduture.expendutureStore');
+
+         Route::get('/expenduture/expendutureEdit/{id}', [OrganizationController::class, 'expendutureEdit'])->name('expenduture.expendutureEdit');
+
+         Route::put('/expenduture/expendutureUpdate/{id}', [OrganizationController::class, 'expendutureUpdate'])->name('expenduture.expendutureUpdate');
+
+         Route::get('/expenduture/expendutureDelete/{id}', [OrganizationController::class, 'expendutureDelete'])->name('expenduture.expendutureDelete');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
          Route::get('/Organization/agent', [OrganizationController::class, 'agent'])->name('organization.agent');
 

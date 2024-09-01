@@ -6,6 +6,17 @@
 </div>
 <div class="container my-5 py-5">
 
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <!--Section: Form Design Block-->
     <section>
 
@@ -31,40 +42,43 @@
                         <h6 class="text-uppercase">Add Expenduture</h>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('organization.department.store') }}" method="post">
+                        <form action="{{ route('expenduture.expendutureStore') }}" method="post">
                             @csrf
                             <div class="row mb-4">
                                 <div class=" col">
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label mt-2" for="form11Example1">Category</label>
-                                            <input placeholder="Enter description" class="form-control" name="name"
-                                                id="" required>
+                                            <label class="form-label" for="memberID">Category</label>
+                                            <select class="form-control" name="category_id">
+                                                @foreach ($departments as $department)
+                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
 
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Description</label>
-                                            <input placeholder="Enter description" class="form-control" name="name"
+                                            <input class="form-control" name="description"
                                                 id="" required>
                                         </div>
                                         
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1" min=1>Amount</label>
-                                            <input type="number"  class="form-control" name="idcard"
+                                            <input type="number"  class="form-control" name="amount"
                                                 id="" required>
                                         </div>
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Date</label>
-                                            <input type="date" class="form-control" name="name"
+                                            <input type="date" class="form-control" name="date"
                                                 id="" required>
                                         </div>
-                                        <div class="form-outline">
+                                        {{-- <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Employee</label>
                                             <input type="text" placeholder="Enter phone" class="form-control" name="phone"
                                                 id="" required>
                                         </div>
-                                        
+                                         --}}
              
 
                                     </div>
@@ -85,25 +99,27 @@
                         <thead class="bg-light">
                             <tr>
                                 <th>NO</th>
-                                <th>Name</th>
+                                <th>Description</th>
                                 <th>Amount</th>
-                                <th>Amount Increase</th>
-                                <th>Interest Rate</th>
-                                <th>Total share</th>
-
+                                <th>Date</th>
+                                <th>Category</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($departments as $key => $item)
+                            @foreach ($expenditures as  $item)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->department_name }}</td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->description }}</td>
+                                <td>{{ $item->amount }}</td>
+                                <td>{{ $item->date }}</td>
+                                <td>{{ $item->category_name }}</td>
+
                                 <td>
                                     <a class="btn btn-success rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.edit', $item->id) }}">Edit</a>
+                                        href="{{ route('expenduture.expendutureEdit', $item->id) }}">Edit</a>
                                     <a class="btn btn-danger rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.delete', $item->id) }}">Delete</a>
+                                        href="{{ route('expenduture.expendutureDelete', $item->id) }}">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

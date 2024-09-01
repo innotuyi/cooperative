@@ -23,20 +23,37 @@
                 <div class="text-left w-50 ">
                     <div class="card mb-4">
                         <div class="card-header py-3">
-                            <h5 class="text-uppercase">Update Punishment</h5>
+                            <h5 class="text-uppercase">Update Expenduture</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('organization.expendutureCategoryUpdate', $department->id) }}" method="post">
+                            <form action="{{ route('expenduture.expendutureUpdate', $department->id) }}" method="post">
                                 @csrf
                                 @method('put')
                                 <div class="row mb-4">
                                     <div class="col">
    
                                         <div class="form-outline">
+                                            <label class="form-label mt-2" for="form11Example1">Category</label>
+                                            <input  value="{{$department->category_name}}" class="form-control" 
+                                            name="category_id"
+                                                id="" >
+                                        </div>
+
+                                        <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Description</label>
-                                            <input  value="{{$department->name}}" placeholder="Enter description" class="form-control" 
-                                            name="name"
-                                                id="" required>
+                                            <input  value="{{$department->description}}" class="form-control" name="description"
+                                                id="" >
+                                        </div>
+                                        
+                                        <div class="form-outline">
+                                            <label class="form-label mt-2" for="form11Example1" min=1>Amount</label>
+                                            <input value="{{$department->amount}}" type="number"  class="form-control" name="amount"
+                                                id="" >
+                                        </div>
+                                        <div class="form-outline">
+                                            <label class="form-label mt-2" for="form11Example1">Date</label>
+                                            <input value="{{$department->date}}" type="date" class="form-control" name="date"
+                                                id="" >
                                         </div>
                                     </div>
                                 </div>

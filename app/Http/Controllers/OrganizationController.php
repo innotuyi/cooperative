@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Expenditure;
 use App\Models\ExpenditureCategory;
 use App\Models\Guardian;
 use App\Models\Meeting;
@@ -478,8 +479,6 @@ class OrganizationController extends Controller
         return redirect()->route('organization.expendutureCategory')
                          ->with('success', 'Expenditure category updated successfully.');
 
-
-
     }
 
     public function expendutureCategoryDelete($id) {
@@ -492,15 +491,109 @@ class OrganizationController extends Controller
 
     }
 
-
-
-
-
     public function expenduture()
     {
-        $departments = Member::all();
-        return view('admin.pages.Organization.Department.expenduture', compact('departments'));
+        $departments = ExpenditureCategory::all();
+
+        $expenditures = Expenditure::select(
+            'expenditures.*',
+            'expenditure_categories.name as category_name'
+        )
+        ->join('expenditure_categories', 'expenditures.category_id', '=', 'expenditure_categories.id')
+        ->get();   
+        return view('admin.pages.Organization.Department.expenduture', compact('departments', 'expenditures'));
     }
+
+
+    public function expendutureStore(Request $request) {
+
+
+         // Create the validator instance using Validator::make
+    $validator = Validator::make($request->all(), [
+        'category_id' => 'required|exists:expenditure_categories,id',
+        'description' => 'nullable|string',
+        'amount' => 'required|numeric',
+        'date' => 'required|date',
+        'paid_to' => 'nullable|string',
+        'employee_id' => 'nullable|exists:employees,id',
+    ]);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)      // Return with validation errors
+            ->withInput();                // Return with old input data
+    }
+        $data = $request->all();
+        $data['date'] = Carbon::parse($request->date)->toDateString();
+    
+        // Create the expenditure with the parsed date
+        Expenditure::create($data);
+
+        return redirect()->route('organization.expenduture')
+        ->with('success', 'Expenditure  created successfully.');    }
+
+    public function expendutureEdit($id) {
+
+       // $expenditure = Expenditure::findOrFail($id);
+        $department = Expenditure::select(
+            'expenditures.*',                          // Select all fields from the expenditures table
+            'expenditure_categories.name as category_name' // Join and select category name
+        )
+        ->join('expenditure_categories', 'expenditures.category_id', '=', 'expenditure_categories.id')
+        ->where('expenditures.id', $id)                // Filter by the expenditure ID
+        ->firstOrFail();                               // Retrieve the first matching result or fail if not found
+    
+        //$employees = Employee::all();
+        return view('admin.pages.Organization.Department.expendutureEdit', compact('department'));
+
+    }
+
+    public function  expendutureUpdate(Request $request, $id) {
+
+
+
+        $expenditure = Expenditure::findOrFail($id);
+
+        // Parse and format the 'date' using Carbon
+        $formattedDate = Carbon::parse($request->input('date'))->format('Y-m-d');
+        
+        // Update the expenditure, passing the Carbon date separately
+        $expenditure->update([
+            'description' => $request->input('description'),
+            'amount' => $request->input('amount'),
+            'date' => $formattedDate,  // Use the formatted Carbon date
+            'paid_to' => $request->input('paid_to'),
+            'employee_id' => $request->input('employee_id'),
+        ]);
+        return redirect()->route('organization.expenduture')
+                         ->with('success', 'Expenditure updated successfully.');
+
+
+
+    }
+
+    public function expendutureDelete($id) {
+
+
+        $expenditure = Expenditure::findOrFail($id);
+        $expenditure->delete();
+
+        return redirect()->route('organization.expenduture');
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function agent()
