@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\ExpenditureCategory;
 use App\Models\Guardian;
 use App\Models\Meeting;
 use App\Models\Member;
 use App\Models\Properties;
+use App\Models\Punishment;
 use App\Models\Share;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -49,10 +51,10 @@ class OrganizationController extends Controller
             'm.district as member_district',
             'm.sector as member_sector'
         )
-        ->join('shares', 'shares.memberID', '=', 'm.id')  // Alias the members table as 'm'
-        ->from('members as m') // Set alias for the members table
-        ->get();
-    
+            ->join('shares', 'shares.memberID', '=', 'm.id')  // Alias the members table as 'm'
+            ->from('members as m') // Set alias for the members table
+            ->get();
+
 
         $departments = Member::all();
 
@@ -75,7 +77,6 @@ class OrganizationController extends Controller
 
             notify()->error($validate->getMessageBag());
             return redirect()->back();
-
         }
 
         $joining_date = Carbon::parse($request->joining_date);
@@ -93,21 +94,22 @@ class OrganizationController extends Controller
     }
 
 
-    public function shareEdit($id) {
+    public function shareEdit($id)
+    {
         $department = Member::select(
-                'shares.*',                // Select all columns from the 'shares' table
-                'm.id as member_id',        // Select and alias the 'id' column from the alias 'm'
-                'm.name as member_name',    // Alias 'name' from the alias 'm'
-                'm.phone as member_phone',  // Alias 'phone' from the alias 'm'
-                'm.idcard as member_idcard',
-                'm.district as member_district',
-                'm.sector as member_sector'
-            )
+            'shares.*',                // Select all columns from the 'shares' table
+            'm.id as member_id',        // Select and alias the 'id' column from the alias 'm'
+            'm.name as member_name',    // Alias 'name' from the alias 'm'
+            'm.phone as member_phone',  // Alias 'phone' from the alias 'm'
+            'm.idcard as member_idcard',
+            'm.district as member_district',
+            'm.sector as member_sector'
+        )
             ->join('shares', 'shares.memberID', '=', 'm.id')  // Join on the memberID field and alias members table as 'm'
             ->from('members as m')                            // Set alias for the members table
             ->where('shares.id', $id)                         // Filter by share ID
             ->first();                                        // Retrieve the first matching record
-    
+
         if ($department) {
             return view('admin.pages.Organization.Department.editShare', compact('department'));
         } else {
@@ -117,7 +119,8 @@ class OrganizationController extends Controller
 
 
 
-    public function shareDelete($id) {
+    public function shareDelete($id)
+    {
         $department = Share::find($id);
         if ($department) {
             $department->delete();
@@ -125,15 +128,16 @@ class OrganizationController extends Controller
         notify()->success('share Deleted Successfully.');
         return redirect()->back();
     }
-    
 
 
-    public function shareUpdate(Request $request, $id) {
-          // Validate the incoming request data
+
+    public function shareUpdate(Request $request, $id)
+    {
+        // Validate the incoming request data
 
 
-      
-          $validate = Validator::make($request->all(), [
+
+        $validate = Validator::make($request->all(), [
             'amount' => 'nullable|numeric|min:0',             // Amount must be a number greater than or equal to 0
             'joining_date' => 'nullable|date',                // Joining date must be a valid date
             'amount_increase' => 'nullable|numeric|min:0',    // Amount increase (optional), must be a number
@@ -143,8 +147,8 @@ class OrganizationController extends Controller
 
 
 
-          // Check if validation fails
-          if ($validate->fails()) {
+        // Check if validation fails
+        if ($validate->fails()) {
             return redirect()->back()
                 ->withErrors($validate)      // Return with validation errors
                 ->withInput();                // Return with old input data
@@ -177,7 +181,7 @@ class OrganizationController extends Controller
         // return redirect()->back()->with('success', 'Guardian updated successfully');
     }
 
-    
+
 
 
     public function properties()
@@ -186,7 +190,8 @@ class OrganizationController extends Controller
         return view('admin.pages.Organization.Department.properties', compact('departments'));
     }
 
-    public function propertyStore(Request $request) {
+    public function propertyStore(Request $request)
+    {
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -204,25 +209,24 @@ class OrganizationController extends Controller
 
 
         return redirect()->route('organization.properties');
-
     }
 
-    public function propertyEdit ($id) {
+    public function propertyEdit($id)
+    {
 
         $department = Properties::find($id);
 
-        
+
         if ($department) {
             return view('admin.pages.Organization.Department.propertyEdit', compact('department'));
         } else {
             return redirect()->back()->with('error', 'property not found.');
         }
-
-
     }
 
 
-    public function propertyUpdate(Request $request, $id) {
+    public function propertyUpdate(Request $request, $id)
+    {
 
         // Validate the incoming request data
 
@@ -230,11 +234,11 @@ class OrganizationController extends Controller
             'name' => 'required|string|max:255',
             'location' => 'nullable|string|max:255',
         ]);
-      
- 
 
-          // Check if validation fails
-          if ($validator->fails()) {
+
+
+        // Check if validation fails
+        if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)      // Return with validation errors
                 ->withInput();                // Return with old input data
@@ -248,18 +252,18 @@ class OrganizationController extends Controller
         $property->update([
             'name' => $request->name,
             'location' =>  $request->location,
-          
+
         ]);
 
         notify()->success('Updated successfully.');
 
         return redirect()->route('organization.properties');
-
     }
 
 
 
-    public function deleteProperty($id) {
+    public function deleteProperty($id)
+    {
 
         $department = Properties::find($id);
         if ($department) {
@@ -267,11 +271,9 @@ class OrganizationController extends Controller
         }
         notify()->success('Property Deleted Successfully.');
         return redirect()->back();
-
-
     }
 
-    
+
     public function meeting()
     {
         $departments = Meeting::all();
@@ -280,7 +282,8 @@ class OrganizationController extends Controller
 
 
 
-    public function meetingStore(Request $request) {
+    public function meetingStore(Request $request)
+    {
 
 
         $validate = Validator::make($request->all(), [
@@ -299,27 +302,25 @@ class OrganizationController extends Controller
 
 
         return redirect()->route('organization.meeting');
-
-
-
     }
 
-    public function meetingEdit( Request $request, $id){
+    public function meetingEdit(Request $request, $id)
+    {
 
-        $department = Meeting::find($id) ;
+        $department = Meeting::find($id);
 
 
-                
+
         if ($department) {
             return view('admin.pages.Organization.Department.meetingEdit', compact('department'));
         } else {
             return redirect()->back()->with('error', 'meeting not found.');
         }
-
     }
 
 
-    public function meetingUpdate(Request $request, $id){
+    public function meetingUpdate(Request $request, $id)
+    {
 
         $validate = Validator::make($request->all(), [
             'topic' => 'required|string|max:255',
@@ -336,14 +337,13 @@ class OrganizationController extends Controller
 
         $meeting->update($request->all());;
 
-            return redirect()->route('organization.meeting')
+        return redirect()->route('organization.meeting')
             ->with('success', 'Meeting deleted successfully.');
-
-
     }
 
 
-    public function deleteMeeting($id) {
+    public function deleteMeeting($id)
+    {
 
 
         $meeting = Meeting::findOrFail($id);
@@ -353,22 +353,147 @@ class OrganizationController extends Controller
             ->with('success', 'Meeting deleted successfully.');
     }
 
-
-
-
-
-
-
-
-
-
-
-
     public function punishment()
     {
         $departments = Member::all();
-        return view('admin.pages.Organization.Department.punishment', compact('departments'));
+
+        $members = Punishment::join('members', 'punishments.memberID', '=', 'members.id')
+            ->select('punishments.*', 'members.name as member_name', 'members.phone as member_phone')
+            ->get();
+
+
+        return view('admin.pages.Organization.Department.punishment', compact('members', 'departments'));
     }
+
+
+    public function punishmentStore(Request $request)
+    {
+
+        $validate = Validator::make($request->all(), [
+            'memberID' => 'required|exists:members,id',
+            'description' => 'required|string|max:255',
+            'charges' => 'required|numeric|min:0',
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput();
+        }
+
+        Punishment::create($request->all());
+
+        return redirect()->route('organization.punishment')
+            ->with('success', 'punishment created successfully.');
+    }
+
+
+    public function punishmentEdit($id)
+    {
+
+        $department = Punishment::join('members', 'punishments.memberID', '=', 'members.id')
+            ->select('punishments.*', 'members.name as member_name', 'members.phone as member_phone')
+            ->where('punishments.id', $id)
+            ->firstOrFail();
+
+
+        return  view('admin.pages.Organization.Department.punishmentEdit', compact('department'));
+    }
+
+    public function punishmentUpdate(Request $request, $id)
+    {
+
+        $validate = Validator::make($request->all(), [
+            // 'memberID' => 'required|exists:members,id',
+            'description' => 'required|string|max:255',
+            'charges' => 'required|numeric|min:0',
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput();
+        }
+
+        $punishment = Punishment::findOrFail($id);
+        $punishment->update($request->all());
+
+        return redirect()->route('organization.punishment')
+            ->with('success', 'Punishment updated successfully.');
+    }
+
+    public function Deletepunishment($id)
+    {
+
+        $punishment = Punishment::findOrFail($id);
+        $punishment->delete();
+
+        return redirect()->route('organization.punishment')
+            ->with('success', 'Punishment deleted successfully.');
+    }
+
+
+    public function expendutureCategory()
+    {
+
+
+        $departments = ExpenditureCategory::all();
+
+        return view('admin.pages.Organization.Department.expendutureCategory', compact('departments'));
+    }
+    public function expendutureCategoryStore(Request $request) {
+
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        ExpenditureCategory::create($request->all());
+
+        return redirect()->route('organization.expendutureCategory')
+                         ->with('success', 'Expenditure category created successfully.');
+
+    }
+
+
+    public function expendutureCategoryEdit($id) {
+
+
+        $department = ExpenditureCategory::findOrFail($id);
+
+        return view('admin.pages.Organization.Department.expendutureEdit', compact('department'));
+
+    }
+
+    public function expendutureCategoryUpdate(Request $request, $id) {
+
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $category = ExpenditureCategory::findOrFail($id);
+        $category->update($request->all());
+
+        return redirect()->route('organization.expendutureCategory')
+                         ->with('success', 'Expenditure category updated successfully.');
+
+
+
+    }
+
+    public function expendutureCategoryDelete($id) {
+
+        $category = ExpenditureCategory::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('organization.expendutureCategory')
+                         ->with('success', 'Expenditure category deleted successfully.');
+
+    }
+
+
+
 
 
     public function expenduture()

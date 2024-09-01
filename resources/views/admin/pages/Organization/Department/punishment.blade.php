@@ -6,6 +6,16 @@
 </div>
 <div class="container my-5 py-5">
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <!--Section: Form Design Block-->
     <section>
 
@@ -31,33 +41,32 @@
                         <h6 class="text-uppercase">Add punishment</h>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('organization.department.store') }}" method="post">
+                        <form action="{{ route('punishment.punishmentStore') }}" method="post">
                             @csrf
                             <div class="row mb-4">
                                 <div class=" col">
                                     <div class="col">
                                         <div class="form-outline">
-                                            <label class="form-label mt-2" for="form11Example1">Names</label>
-                                            <input placeholder="Enter Name" class="form-control" name="name"
-                                                id="" required>
+                                            <label class="form-label mt-2" for="form11Example1">Member</label>
+                                            <select type="text" class="form-control" name="memberID">
+                                                @foreach ($departments as $department)
+                                                <option value="{{$department->id}}">{{ $department->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Description</label>
-                                            <input placeholder="Enter description" class="form-control" name="name"
+                                            <input placeholder="Enter description" class="form-control" name="description"
                                                 id="" required>
                                         </div>
 
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Charges</label>
-                                            <input type="number"  class="form-control" name="name"
+                                            <input type="number"  class="form-control" name="charges"
                                                 id="" required>
                                         </div>
-                                        
-                                        
-                                        
-                                        
-             
-
+                                                                               
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +85,7 @@
                         <thead class="bg-light">
                             <tr>
                                 <th>NO</th>
-                                <th>Name</th>
+                                <th>Member Name</th>
                                 <th>Description</th>
                                 <th>
                                     charges
@@ -85,15 +94,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($departments as $key => $item)
+                            @foreach ($members as  $item)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $item->department_name }}</td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->member_name }}</td>
+                                <td>{{ $item->description }}</td>
+                                <td>{{ $item->charges }}</td>
+
+
                                 <td>
                                     <a class="btn btn-success rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.edit', $item->id) }}">Edit</a>
+                                        href="{{ route('punishment.punishmentEdit', $item->id) }}">Edit</a>
                                     <a class="btn btn-danger rounded-pill fw-bold text-white"
-                                        href="{{ route('Organization.delete', $item->id) }}">Delete</a>
+                                        href="{{ route('punishment.Deletepunishment', $item->id) }}">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

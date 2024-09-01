@@ -25,6 +25,9 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
          Route::get('/Organization/department', [OrganizationController::class, 'member'])->name('organization.member');
 
+         Route::post('/Organization/department/member/store', [OrganizationController::class, 'memberStore'])->name('organization.department.member.store');
+
+
          Route::get('/Organization/share', [OrganizationController::class, 'share'])->name('organization.share');
 
          Route::post('/Organization/shareStore', [OrganizationController::class, 'shareStore'])->name('organization.shareStore');
@@ -62,17 +65,42 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
 
-
-
-
-
-
-
-
-
-
-
          Route::get('/Organization/punishment', [OrganizationController::class, 'punishment'])->name('organization.punishment');
+         Route::post('/punishment/punishmentStore', [OrganizationController::class, 'punishmentStore'])->name('punishment.punishmentStore');
+         Route::get('/punishment/punishmentEdit/{id}', [OrganizationController::class, 'punishmentEdit'])->name('punishment.punishmentEdit');
+         Route::put('/punishment/punishmentUpdate/{id}', [OrganizationController::class, 'punishmentUpdate'])->name('punishment.punishmentUpdate');
+         Route::get('/punishment/Deletepunishment/{id}', [OrganizationController::class, 'Deletepunishment'])->name('punishment.Deletepunishment');
+
+
+
+
+
+
+         Route::get('/Organization/expendutureCategory', [OrganizationController::class, 'expendutureCategory'])->name('organization.expendutureCategory');
+
+         Route::post('/expendutureCategory/expendutureCategoryStore', [OrganizationController::class, 'expendutureCategoryStore'])->name('organization.expendutureCategoryStore');
+         
+         Route::get('/expendutureCategory/expendutureCategoryEdit/{id}', [OrganizationController::class, 'expendutureCategoryEdit'])->name('organization.expendutureCategoryEdit');
+
+         Route::put('/expendutureCategory/expendutureCategoryUpdate/{id}', [OrganizationController::class, 'expendutureCategoryUpdate'])->name('organization.expendutureCategoryUpdate');
+
+         Route::get('/expendutureCategory/expendutureCategoryDelete{id}', [OrganizationController::class, 'expendutureCategoryDelete'])->name('organization.expendutureCategoryDelete');
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
          Route::get('/Organization/expenduture', [OrganizationController::class, 'expenduture'])->name('organization.expenduture');
 

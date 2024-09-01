@@ -125,13 +125,13 @@
 
         {{-- Organization --}}
         <li class="sidebar-list-item py-2"><a class="sidebar-link text-muted " href="#"
-                data-bs-target="#meeting" role="button" aria-expanded="false" data-bs-toggle="collapse"><i
+                data-bs-target="#punishment" role="button" aria-expanded="false" data-bs-toggle="collapse"><i
                     class="fa-solid fa-building me-2  text-info"></i>
                 <span class="sidebar-link-title fs-7">Manage Punishment</span></a>
-            <ul class="sidebar-menu   list-unstyled collapse " id="meeting">
+            <ul class="sidebar-menu   list-unstyled collapse " id="punishment">
                 <li class="sidebar-list-item py-2  fs-6"><a class="sidebar-link text-muted ms-3"
                         href="{{ route('organization.punishment') }}"><i
-                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Meeting</a>
+                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Punishment</a>
                 </li>
 
             </ul>
@@ -148,7 +148,7 @@
                             class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Expenduture</a>
                 </li>
                 <li class="sidebar-list-item py-2  fs-6"><a class="sidebar-link text-muted ms-3"
-                        href="{{ route('organization.expenduture') }}"><i
+                        href="{{ route('organization.expendutureCategory') }}"><i
                             class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Category</a>
                 </li>
 
