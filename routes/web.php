@@ -21,6 +21,10 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
          // department
 
 
+         Route::get('/myProfile', [UserController::class, 'myProfile'])->name('profile');
+
+
+
          Route::get('/organization/department', [OrganizationController::class, 'department'])->name('organization.department');
 
          Route::get('/Organization/department', [OrganizationController::class, 'member'])->name('organization.member');

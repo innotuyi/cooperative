@@ -34,7 +34,7 @@
                             <th>NO</th>
                             <th>Member Name</th>
                             <th>Amount</th>
-                            <th>Joining Date</th>
+                            <th>Date</th>
                             <th>Amount Increase</th>
                             <th>Interest Rate</th>
                             <th>Total Share</th>
@@ -90,14 +90,14 @@
                             </div>
                             <div class="form-outline mt-3">
                                 <label class="form-label" for="amount">Amount</label>
-                                <input type="number" class="form-control" name="amount" required>
+                                <input type="number" class="form-control" name="amount">
                             </div>
                             <div class="form-outline mt-3">
-                                <label class="form-label" for="joining_date">Joining Date</label>
+                                <label class="form-label" for="joining_date">Date</label>
                                 <input type="date" class="form-control" name="joining_date" required>
                             </div>
                             <div class="form-outline mt-3">
-                                <label class="form-label" for="amount_increase">Amount Increase</label>
+                                <label class="form-label" for="amount_increase">Amount Increase/ </label>
                                 <input type="number" class="form-control" name="amount_increase">
                             </div>
                             <div class="form-outline mt-3">

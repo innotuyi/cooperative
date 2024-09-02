@@ -72,7 +72,7 @@ class OrganizationController extends Controller
             'amount' => 'nullable|numeric|min:0',             // Amount must be a number greater than or equal to 0
             'joining_date' => 'nullable|date',                // Joining date must be a valid date
             'amount_increase' => 'nullable|numeric|min:0',    // Amount increase (optional), must be a number
-            'interest_rate' => 'nullable|numeric|min:0|max:100', // Interest rate (optional), between 0 and 100
+            'interest_rate' => 'nullable|numeric|min:0', // Interest rate (optional), between 0 and 100
             'total_share' => 'nullable|numeric|min:0',            // Sector is required
         ]);
 
@@ -87,10 +87,10 @@ class OrganizationController extends Controller
         Share::create([
             'memberID' => $request->memberID,
             'amount' => $request->amount,
-            'joining_date' =>  $joining_date,
+            'joining_date' => $joining_date,
             'amount_increase' => $request->amount_increase,
             'interest_rate' => $request->interest_rate,
-            'total_share' => $request->total_share,
+            'total_share' => $request->amount + $request->amount_increase + $request->interest_rate,
         ]);
         notify()->success('New share created successfully.');
         return redirect()->back();

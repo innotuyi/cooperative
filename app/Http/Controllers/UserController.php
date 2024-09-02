@@ -127,15 +127,16 @@ class UserController extends Controller
 
     public function myProfile()
     {
-        $user = Auth::user();
-        if ($user->employee) {
-            $employee = $user->employee;
-            $departments = Department::all();
-            $designations = Designation::all();
-            return view('admin.pages.Users.employeeProfile', compact('user', 'employee', 'departments', 'designations', 'salaries'));
-        } else {
-            return view('admin.pages.Users.nonEmployeeProfile', compact('user'));
-        }
+        // $user = Auth::user();
+        // if ($user->employee) {
+        //     $employee = $user->employee;
+        //     $departments = Department::all();
+        //     $designations = Designation::all();
+        return view('admin.pages.Users.nonEmployeeProfile');
+            //return view('admin.pages.Users.employeeProfile');
+        // } else {
+        //     return view('admin.pages.Users.nonEmployeeProfile', compact('user'));
+        // }
     }
 
     // user delete

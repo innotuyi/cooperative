@@ -30,6 +30,20 @@
             </ul>
         </li>
 
+           {{-- Organization --}}
+           <li class="sidebar-list-item py-2"><a class="sidebar-link text-muted " href="#" data-bs-target="#share"
+            role="button" aria-expanded="false" data-bs-toggle="collapse"><i
+                class="fa-solid fa-building me-2  text-info"></i>
+            <span class="sidebar-link-title fs-7">Manage Share</span></a>
+        <ul class="sidebar-menu   list-unstyled collapse " id="share">
+            <li class="sidebar-list-item py-2  fs-6"><a class="sidebar-link text-muted ms-3"
+                    href="{{ route('organization.share') }}"><i
+                        class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Share</a>
+            </li>
+
+        </ul>
+    </li>
+
 
 
 
@@ -80,19 +94,7 @@
             </ul>
         </li>
 
-        {{-- Organization --}}
-        <li class="sidebar-list-item py-2"><a class="sidebar-link text-muted " href="#" data-bs-target="#share"
-                role="button" aria-expanded="false" data-bs-toggle="collapse"><i
-                    class="fa-solid fa-building me-2  text-info"></i>
-                <span class="sidebar-link-title fs-7">Manage Share</span></a>
-            <ul class="sidebar-menu   list-unstyled collapse " id="share">
-                <li class="sidebar-list-item py-2  fs-6"><a class="sidebar-link text-muted ms-3"
-                        href="{{ route('organization.share') }}"><i
-                            class="fa-regular fa-circle-right fa-sm me-1 text-info"></i>Share</a>
-                </li>
-
-            </ul>
-        </li>
+     
 
         {{-- Organization --}}
         <li class="sidebar-list-item py-2"><a class="sidebar-link text-muted " href="#" data-bs-target="#property"
