@@ -13,6 +13,7 @@ use App\Models\Member;
 use App\Models\Properties;
 use App\Models\Punishment;
 use App\Models\Share;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,8 +29,8 @@ class OrganizationController extends Controller
 
     public function member()
     {
-        $members = Member::select(
-            'members.*',                // Select all columns from the 'members' table
+        $members = User::select(
+            'users.*',                // Select all columns from the 'members' table
             'guardians.id as guardian_id',    // Select and alias the 'id' column from 'guardians'
             'guardians.name as guardian_name', // Select and alias the 'name' column from 'guardians'
             'guardians.phone as guardian_phone', // Select and alias any other guardian columns
@@ -37,7 +38,7 @@ class OrganizationController extends Controller
             'guardians.district as guardian_district',
             'guardians.sector as guardian_sector'
         )
-            ->join('guardians', 'guardians.id', '=', 'members.guardID') // Adjust the foreign key
+            ->join('guardians', 'guardians.id', '=', 'users.guardID') // Adjust the foreign key
             ->get();
         $departments = Guardian::all();
         return view('admin.pages.Organization.Department.members', compact('departments', 'members'));

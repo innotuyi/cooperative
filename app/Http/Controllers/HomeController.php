@@ -10,6 +10,7 @@ use App\Models\Member;
 use App\Models\Properties;
 use App\Models\Punishment;
 use App\Models\Share;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,7 +29,7 @@ class HomeController extends Controller
     {
 
 
-        $members = Member::count();
+        $members = User::count();
         $shares = Share::count();
         $properties = Properties::count();
         $loans = Loan::count();

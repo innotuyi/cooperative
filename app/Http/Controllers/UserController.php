@@ -40,61 +40,67 @@ class UserController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return redirect()->back()->withErrors('invalid user email or password');
+        return redirect()->back()->withErrors('Invalid user email or password');
     }
 
     public function logout()
     {
-
         auth()->logout();
         notify()->success('Successfully Logged Out');
         return redirect()->route('admin.login');
     }
 
-
     public function list()
     {
         $users = User::all();
-        $employee = Employee::first(); // Fetches the first employee
-        return view('admin.pages.Users.list', compact('users', 'employee'));
+        // $employee = Employee::first(); // Fetches the first employee
+        return view('admin.pages.Users.list', compact('users'));
     }
-
 
     public function createForm($employeeId)
     {
-        $employee = Employee::find($employeeId);
+        // $employee = Employee::find($employeeId);
 
-        if (!$employee) {
-            return redirect()->back()->withErrors('Employee not found');
-        }
+        // if (!$employee) {
+        //     return redirect()->back()->withErrors('Employee not found');
+        // }
 
         return view('admin.pages.Users.createForm', compact('employee'));
     }
 
-
     public function userProfile($id)
     {
-        $user = User::with('employee')->find($id);
-        $employee = $user->employee ?? null;
-        $departments = Department::all();
-        $designations = Designation::all();
-        return view('admin.pages.Users.userProfile', compact('user', 'employee', 'departments', 'designations', 'salaries'));
+        $user = User::find($id);
+        // $employee = $user->employee ?? null;
+        // $departments = Department::all();
+        // $designations = Designation::all();
+        return view('admin.pages.Users.userProfile', compact('user'));
     }
-
 
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'role' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
+            'guardID' => 'nullable|exists:guardians,id',
+            'phone' => 'required|min:10|max:10',
+            'idcard' => 'required|min:16|max:16',
+            'district' => 'required|string',
+            'sector' => 'required|string',
         ]);
-
+        
         if ($validate->fails()) {
+            // Notify the user and return validation errors back to the view
             notify()->error('Invalid Credentials.');
-            return redirect()->back();
+            
+            // Redirect back with input and error messages
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput(); // This retains the input data so the user doesn’t have to retype everything
         }
+        
 
         $fileName = null;
         if ($request->hasFile('user_image')) {
@@ -107,39 +113,35 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'role' => $request->role,
+            'guardID' => $request->guardID,
+            'phone' => $request->phone,
+            'idcard' => $request->idcard,
+            'district' => $request->district,
+            'sector' => $request->sector,
             'image' => $fileName,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
-        // Find associated employee using the email and assign user_id to employee
-        $employee = Employee::where('email', $request->email)->first();
-        if ($employee) {
-            $employee->user_id = $user->id;
-            $employee->save();
+        // Optionally link to an employee
+        //$employee = Employee::where('email', $request->email)->first();
+        if ($user) {
+            // $employee->user_id = $user->id;
+            // $employee->save();
+            notify()->success('User created successfully.');
+            return redirect()->route('organization.member');
+
         }
 
         notify()->success('User created successfully.');
-        return redirect()->route('users.list');
-    }
+        // return redirect()->route('users.list');
 
-    // single  profile
+    }
 
     public function myProfile()
     {
-        // $user = Auth::user();
-        // if ($user->employee) {
-        //     $employee = $user->employee;
-        //     $departments = Department::all();
-        //     $designations = Designation::all();
         return view('admin.pages.Users.nonEmployeeProfile');
-            //return view('admin.pages.Users.employeeProfile');
-        // } else {
-        //     return view('admin.pages.Users.nonEmployeeProfile', compact('user'));
-        // }
     }
-
-    // user delete
 
     public function userDelete($id)
     {
@@ -152,8 +154,6 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    // User edit, update
-
     public function userEdit($id)
     {
         $user = User::find($id);
@@ -161,35 +161,35 @@ class UserController extends Controller
         return view('admin.pages.Users.editUser', compact('user', 'employee'));
     }
 
-
     public function userUpdate(Request $request, $id)
     {
-
-
         $user = User::find($id);
 
         if ($user) {
-
             $fileName = $user->image;
             if ($request->hasFile('user_image')) {
                 $file = $request->file('user_image');
                 $fileName = date('Ymdhis') . '.' . $file->getClientOriginalExtension();
-
                 $file->storeAs('/uploads', $fileName);
             }
 
             $user->update([
                 'name' => $request->name,
                 'role' => $request->role,
+                'guardID' => $request->guardID,
+                'phone' => $request->phone,
+                'idcard' => $request->idcard,
+                'district' => $request->district,
+                'sector' => $request->sector,
                 'image' => $fileName,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-
             ]);
-            // Find associated employee using the email and assign user_id to employee
+
+            // Optionally link to an employee
             $employee = Employee::where('email', $request->email)->first();
             if ($employee) {
-            $employee->user_id = $user->id;
+                $employee->user_id = $user->id;
                 $employee->save();
             }
 
@@ -198,7 +198,6 @@ class UserController extends Controller
         }
     }
 
-    // Search User
     public function searchUser(Request $request)
     {
         $searchTerm = $request->search;

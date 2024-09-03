@@ -11,6 +11,16 @@
 
 <div class="container my-5 py-5">
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <!--Section: Table Block-->
     <section>
 
@@ -38,6 +48,8 @@
                             <th>Name</th>
                             <th>Guardian</th>
                             <th>Telephone</th>
+                            <th>Email</th>
+                            <th>Role</th>
                             <th>District</th>
                             <th>Actions</th>
                         </tr>
@@ -49,6 +61,8 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->guardian_name }}</td>
                             <td>{{ $item->phone }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td>{{ $item->role }}</td>
                             <td>{{ $item->district }}</td>
                             <td>
                                 <a class="btn btn-success rounded-pill fw-bold text-white"
@@ -75,41 +89,84 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('organization.department.member.store') }}" method="post">
+                <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    <!-- Name -->
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
                     </div>
+                
+                    <!-- Role -->
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <select class="form-control" name="role" required>
+                            <option value="member" selected>Member</option>
+                            <option value="admin">Admin</option>
+                            <option value="agent">Agent</option>
+                        </select>
+                    </div>
+                
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
+                    </div>
+                
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
+                    </div>
+                
+                    <!-- Guardian -->
                     <div class="mb-3">
                         <label for="guardID" class="form-label">Guardian</label>
                         <select class="form-control" name="guardID">
-                            @foreach ($departments as $department)
-                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                            @foreach ($departments as $guardian)
+                                <option value="{{ $guardian->id }}">{{ $guardian->name }}</option>
                             @endforeach
                         </select>
                     </div>
+                
+                    <!-- National ID -->
                     <div class="mb-3">
                         <label for="idcard" class="form-label">National ID</label>
-                        <input type="number" class="form-control" name="idcard" placeholder="Enter 16 DIGIT" required>
+                        <input type="text" class="form-control" name="idcard" maxlength="16" placeholder="Enter 16 digits" required>
                     </div>
+                
+                    <!-- Phone Number -->
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone Number</label>
-                        <input type="number" class="form-control" name="phone" placeholder="Enter phone" required>
+                        <input type="text" class="form-control" name="phone" maxlength="10" placeholder="Enter phone number" required>
                     </div>
+                
+                    <!-- District -->
                     <div class="mb-3">
                         <label for="district" class="form-label">District</label>
                         <input type="text" class="form-control" name="district" placeholder="Enter district" required>
                     </div>
+                
+                    <!-- Sector -->
                     <div class="mb-3">
                         <label for="sector" class="form-label">Sector</label>
                         <input type="text" class="form-control" name="sector" placeholder="Enter sector" required>
                     </div>
+                
+                    <!-- Image (optional) -->
+                    <div class="mb-3">
+                        <label for="user_image" class="form-label">Profile Image (optional)</label>
+                        <input type="file" class="form-control" name="user_image">
+                    </div>
+                
+                    <!-- Submit Button -->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Create</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
+                
+                
             </div>
         </div>
     </div>
