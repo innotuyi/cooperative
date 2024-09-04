@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('shares', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('memberID');
+            $table->unsignedBigInteger('userID');
             $table->float('amount')->nullable();
             $table->date('joining_date')->nullable();
             $table->float('amount_increase')->nullable();
             $table->float('interest_rate')->nullable();
             $table->float("total_share")->nullable();
-            $table->foreign('memberID')->references('id')->on("members");
+            $table->foreign('userID')->references('id')->on("users");
             $table->timestamps();
         });
     }

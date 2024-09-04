@@ -10,7 +10,7 @@ class Punishment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'memberID',
+        'userID',
         'description',
         'charges'
     ];

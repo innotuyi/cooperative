@@ -46,7 +46,7 @@ class OrganizationController extends Controller
 
     public function share()
     {
-        $shares = Member::select(
+        $shares = User::select(
             'shares.*',                // Select all columns from the 'shares' table
             'm.id as member_id',        // Select and alias the 'id' column from the alias 'm'
             'm.name as member_name',    // Alias 'name' from the alias 'm'
@@ -55,12 +55,12 @@ class OrganizationController extends Controller
             'm.district as member_district',
             'm.sector as member_sector'
         )
-            ->join('shares', 'shares.memberID', '=', 'm.id')  // Alias the members table as 'm'
-            ->from('members as m') // Set alias for the members table
+            ->join('shares', 'shares.userID', '=', 'm.id')  // Alias the members table as 'm'
+            ->from('users as m') // Set alias for the members table
             ->get();
 
 
-        $departments = Member::all();
+        $departments = User::all();
 
         return view('admin.pages.Organization.Department.share', compact('departments', 'shares'));
     }
@@ -69,7 +69,7 @@ class OrganizationController extends Controller
     public function shareStore(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'memberID' => 'required|exists:members,id',       // Member ID must exist in the members table
+            'userID' => 'required|exists:users,id',       // Member ID must exist in the members table
             'amount' => 'nullable|numeric|min:0',             // Amount must be a number greater than or equal to 0
             'joining_date' => 'nullable|date',                // Joining date must be a valid date
             'amount_increase' => 'nullable|numeric|min:0',    // Amount increase (optional), must be a number
@@ -85,14 +85,28 @@ class OrganizationController extends Controller
 
         $joining_date = Carbon::parse($request->joining_date);
 
+        // Fetch existing values for the user
+        $share = Share::where('userID', $request->userID)->first();
+
+        // If the user has previous records, calculate the total share
+        if ($share) {
+            $total_share = $share->amount + $share->amount_increase + $share->interest_rate;
+        } else {
+            // If no previous record, set it to zero
+            $total_share = 0;
+        }
+
+        // Create a new Share record with updated fields
         Share::create([
-            'memberID' => $request->memberID,
+            'userID' => $request->userID,
             'amount' => $request->amount,
             'joining_date' => $joining_date,
             'amount_increase' => $request->amount_increase,
             'interest_rate' => $request->interest_rate,
-            'total_share' => $request->amount + $request->amount_increase + $request->interest_rate,
+            // Add the fetched values to the new ones
+            'total_share' => $total_share + $request->amount + $request->amount_increase + $request->interest_rate,
         ]);
+
         notify()->success('New share created successfully.');
         return redirect()->back();
     }
@@ -109,8 +123,8 @@ class OrganizationController extends Controller
             'm.district as member_district',
             'm.sector as member_sector'
         )
-            ->join('shares', 'shares.memberID', '=', 'm.id')  // Join on the memberID field and alias members table as 'm'
-            ->from('members as m')                            // Set alias for the members table
+            ->join('shares', 'shares.userID', '=', 'm.id')  // Join on the memberID field and alias members table as 'm'
+            ->from('users as m')                            // Set alias for the members table
             ->where('shares.id', $id)                         // Filter by share ID
             ->first();                                        // Retrieve the first matching record
 
@@ -359,10 +373,10 @@ class OrganizationController extends Controller
 
     public function punishment()
     {
-        $departments = Member::all();
+        $departments = User::all();
 
-        $members = Punishment::join('members', 'punishments.memberID', '=', 'members.id')
-            ->select('punishments.*', 'members.name as member_name', 'members.phone as member_phone')
+        $members = Punishment::join('users', 'punishments.userID', '=', 'users.id')
+            ->select('punishments.*', 'users.name as member_name', 'users.phone as member_phone')
             ->get();
 
 
@@ -374,7 +388,7 @@ class OrganizationController extends Controller
     {
 
         $validate = Validator::make($request->all(), [
-            'memberID' => 'required|exists:members,id',
+            'userID' => 'required|exists:users,id',
             'description' => 'required|string|max:255',
             'charges' => 'required|numeric|min:0',
         ]);
@@ -705,25 +719,25 @@ class OrganizationController extends Controller
 
     public function agentProfitUpdate(Request $request, $id)
     {
-       // Use Validator::make to handle validation manually
-    $validator = Validator::make($request->all(), [
-        // 'agent_id' => 'required|exists:agents,id',
-        'profit' => 'required|numeric',
-        'month' => 'required|string',
-    ]);
+        // Use Validator::make to handle validation manually
+        $validator = Validator::make($request->all(), [
+            // 'agent_id' => 'required|exists:agents,id',
+            'profit' => 'required|numeric',
+            'month' => 'required|string',
+        ]);
 
-    // Check if validation fails
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)  // Return with validation errors
-            ->withInput();            // Return the input data
-    }
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)  // Return with validation errors
+                ->withInput();            // Return the input data
+        }
 
-    // If validation passes, proceed with the update
-    $validated = $validator->validated();
+        // If validation passes, proceed with the update
+        $validated = $validator->validated();
 
-    $agentProfit = AgentProfit::findOrFail($id);
-    $agentProfit->update($validated);
+        $agentProfit = AgentProfit::findOrFail($id);
+        $agentProfit->update($validated);
 
 
         return redirect()->route('organization.agentProfit')->with('success', 'Agent Profit updated successfully.');

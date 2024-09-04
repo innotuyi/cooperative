@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('memberID');
+            $table->unsignedBigInteger('userID');
             $table->float('amount');
             $table->float('interest_rate')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->string('status')->default(0);
-            $table->foreign('memberID')->references('id')->on("members");
+            $table->foreign('userID')->references('id')->on("users");
             $table->timestamps();
         });
     }

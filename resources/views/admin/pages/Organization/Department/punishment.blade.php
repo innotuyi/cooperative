@@ -48,7 +48,7 @@
                                     <div class="col">
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="form11Example1">Member</label>
-                                            <select type="text" class="form-control" name="memberID">
+                                            <select type="text" class="form-control" name="userID">
                                                 @foreach ($departments as $department)
                                                 <option value="{{$department->id}}">{{ $department->name }}
                                                 </option>

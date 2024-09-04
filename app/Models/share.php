@@ -10,7 +10,7 @@ class Share extends Model
     use HasFactory;
 
     protected $fillable = [
-        'memberID',
+        'userID',
         'amount',
         'joining_date',
         'amount_increase',

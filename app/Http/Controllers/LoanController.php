@@ -6,6 +6,7 @@ use App\Models\Leave;
 use App\Models\LeaveType;
 use App\Models\loan;
 use App\Models\Member;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class LoanController extends Controller
     public function loan()
     {
         $leaves = Leave::all();
-        $departments = Member::all();
+        $departments = User::all();
         $leaveTypes = LeaveType::all();
         return view('admin.pages.Leave.leaveForm', compact('leaves', 'leaveTypes', 'departments'));
     }
@@ -39,7 +40,7 @@ class LoanController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:from_date',
             'interest_rate' => 'required',
-            'memberID' => 'required',
+            'userID' => 'required',
 
         ]);
 
@@ -71,7 +72,7 @@ class LoanController extends Controller
             'end_date' =>$toDate,
             'interest_rate' =>$request->interest_rate,
             'amount' =>$request->amount,
-            'memberID' =>$request->memberID,
+            'userID' =>$request->userID,
             'status' => $request->status, // Store the status (approved or not)
         ]);
 

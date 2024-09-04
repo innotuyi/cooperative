@@ -10,9 +10,25 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\viewEmployeeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'home'])->name('home');
+
+
+// In your routes file (web.php)
+
+
+ // Admin Routes (Accessible only by admin users)
+//  Route::group(['middleware' => ['auth', 'IsAdmin']], function () {
+
+// });
+
+
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+
+
+Route::get('/', [HomeController::class, 'home'])->name('home');
+
+
+Route::post('/login-form', [UserController::class, 'loginPost'])->name('admin.login.post');
 
 
 
@@ -22,8 +38,6 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 
 
          Route::get('/myProfile', [UserController::class, 'myProfile'])->name('profile');
-
-
 
          Route::get('/organization/department', [OrganizationController::class, 'department'])->name('organization.department');
 
@@ -41,8 +55,6 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
          Route::put('/share/shareUpdate/{id}', [OrganizationController::class, 'shareUpdate'])->name('share.shareUpdate');
 
          Route::get('/share/delete/{id}', [OrganizationController::class, 'shareDelete'])->name('share.delete');
-
-
 
          Route::get('/Organization/properties', [OrganizationController::class, 'properties'])->name('organization.properties');
 

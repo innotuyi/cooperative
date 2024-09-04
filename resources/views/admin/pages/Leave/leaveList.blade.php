@@ -37,7 +37,7 @@
             @foreach ($leaves as $leave)
             <tr>
                 <td>{{ $leave->id }}</td>
-                <td>{{ $leave->memberID }}</td>
+                <td>{{ $leave->userID }}</td>
                 <td>{{ $leave->amount }}</td>
                 <td>{{ $leave->interest_rate }}</td>
                 <td>{{ $leave->start_date }}</td>

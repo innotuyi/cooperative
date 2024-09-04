@@ -68,7 +68,7 @@
                                     <div class="col-md-6">
                                         <div class="form-outline">
                                             <label class="form-label mt-2" for="guardID">Member</label>
-                                            <select class="form-control" name="memberID">
+                                            <select class="form-control" name="userID">
                                                 @foreach ($departments as $department)
                                                 <option value="{{ $department->id }}">{{ $department->name }}</option>
                                                 @endforeach

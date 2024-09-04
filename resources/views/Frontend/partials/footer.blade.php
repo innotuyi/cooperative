@@ -1,23 +1,32 @@
-<div class="footer bg-secondary">
-    <!-- tiny-footer -->
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                    <p>Leave management system
-                    </p>
-                </div>
+<div class="footer  text-white py-4">
+
+    <!-- Tiny Footer -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <p class="mb-0">COTAVOGA MANAGEMENT SYSTEM</p>
             </div>
-        <!-- /. tiny-footer -->
+        </div>
     </div>
+    <!-- /. Tiny Footer -->
+
 </div>
 
 <style>
-   
-  .bg-secondary{
+  
+    .footer {
+        font-size: 1rem;
+        padding: 20px 0;
+        border-top: 5px solid #ffcd39; /* Adds a visual highlight to the footer */
+    }
 
-    /* background-color:#054D6F !important; */
-    background-color:##0A4B0B!important;
+    .footer p {
+        margin: 0;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
 
-  }
-
+    .footer:hover {
+        transition: background-color 0.3s ease-in-out;
+    }
 </style>

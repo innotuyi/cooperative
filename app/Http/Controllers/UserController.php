@@ -23,14 +23,15 @@ class UserController extends Controller
             $request->all(),
             [
                 'email' => 'required|email',
-                'password' => 'required|min:6|max:8',
+                'password' => 'required|min:6',
             ]
         );
 
         if ($val->fails()) {
-            //message
-            return redirect()->back()->withErrors($val);
+            // Redirect back with validation errors
+            return redirect()->back()->withErrors($val)->withInput();
         }
+        
 
         $credentials = $request->except('_token');
 
@@ -212,4 +213,7 @@ class UserController extends Controller
 
         return view('admin.pages.Users.searchUserList', compact('users'));
     }
+
+
+    
 }

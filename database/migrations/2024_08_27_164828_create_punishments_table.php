@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('punishments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('memberID');
+            $table->unsignedBigInteger('userID');
             $table->string('description');
             $table->float('charges');
-            $table->foreign('memberID')->references('id')->on("members");
+            $table->foreign('userID')->references('id')->on("users");
             $table->timestamps();
         });
     }

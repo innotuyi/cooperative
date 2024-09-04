@@ -82,7 +82,7 @@
                         <div class="col">
                             <div class="form-outline">
                                 <label class="form-label" for="memberID">Member</label>
-                                <select class="form-control" name="memberID">
+                                <select class="form-control" name="userID">
                                     @foreach ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                     @endforeach

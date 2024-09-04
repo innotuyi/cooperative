@@ -4,7 +4,7 @@
 <div class="shadow p-4 d-flex justify-content-between align-items-center ">
     <h4 class="text-uppercase">My Leave</h4>
     <div>
-        <a href="{{ route('loan.loanForm') }}" class="btn btn-success p-2  px-3 text-lg rounded-pill">Apply for Leave</a>
+        <a href="{{ route('loan.loanForm') }}" class="btn btn-success p-2  px-3 text-lg rounded-pill">Apply  Loan</a>
     </div>
 </div>
 <div class="container my-5 py-5">
@@ -39,16 +39,16 @@
         <tbody>
             @foreach ($leaves as $leave)
             <tr>
-                <td>{{ $leave->memberID }}</td>
+                <td>{{ $leave->userID }}</td>
                 <td>{{ $leave->amount }}</td>
                 <td>{{ $leave->interest_rate }}</td>
                 <td>{{ $leave->start_date }}</td>
                 <td>{{ $leave->end_date }}</td>
                 <td>{{ $leave->status }}</td>
                 <td>
-                    @if($leave->status === 1)
+                    @if($leave->status === '1')
                     <span class="text-white fw-bold bg-green rounded-pill p-2">Accepted</span>
-                    @elseif($leave->status === 'rejected')
+                    @elseif($leave->status === '0')
                     <span class="text-white fw-bold bg-red rounded-pill p-2">Rejected</span>
                     @else
                     <span class="text-white fw-bold bg-warning rounded-pill p-2">Pending</span>
